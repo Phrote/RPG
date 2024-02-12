@@ -25,7 +25,7 @@ public class Commands {
 
     public static void loadGame() {
         System.out.println("Loading...");
-
+        Player.readPlayer();
         System.out.println("Loading was Successful!");
     }
 

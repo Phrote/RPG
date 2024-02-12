@@ -27,6 +27,8 @@ public class Menus {
             break;
         case "2":
             System.out.println("Load Game");
+            Commands.loadGame();
+            System.out.println(Game.player.toString());
             break;
         case "5":
         case "exit":

@@ -17,8 +17,11 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import main.Game;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 public class Player {
 
@@ -40,7 +43,11 @@ public class Player {
 
     @Override
     public String toString() {
-        return "";
+        String result = "\n" + this.name + "\n------------\n";
+        for (Stat stat : this.stats) {
+            result = result.concat(stat.toString() + "\n");
+        }
+        return result;
     }
 
     public void save() {
@@ -54,7 +61,7 @@ public class Player {
             // create the root element
             Element root = doc.createElement("player");
 
-            Element nameElement = doc.createElement(name);
+            Element nameElement = doc.createElement("name");
             nameElement.appendChild(doc.createTextNode(this.name));
             root.appendChild(nameElement);
 
@@ -76,7 +83,7 @@ public class Player {
             tr.setOutputProperty(OutputKeys.METHOD, "xml");
             tr.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
             tr.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
-            
+
             StreamResult result = new StreamResult(new File("player.xml"));
 
             tr.transform(new DOMSource(doc), result);
@@ -87,12 +94,31 @@ public class Player {
         } catch (ParserConfigurationException ex) {
             Logger.getLogger(Player.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+
     }
 
-    public static void loadFromXml() {
+    public static void readPlayer() {
+        try {
+            File fXmlFile = new File("player.xml");
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(fXmlFile);
+            doc.getDocumentElement().normalize();
 
+            String name = "";
+            ArrayList<Stat> stats = new ArrayList<>();
+            name = doc.getElementsByTagName("name").item(0).getTextContent();
+            NodeList statList = doc.getElementsByTagName("stats").item(0).getChildNodes();
+            for (int i = 0; i < statList.getLength(); i++) {
+                Node stat = statList.item(i);
+                if (stat.getNodeType() == Node.ELEMENT_NODE) {
+                    stats.add(new Stat(stat.getNodeName(), Integer.parseInt(stat.getTextContent())));
+                }
+            }
+            Game.player = new Player(name, stats);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
