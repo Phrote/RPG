@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<player>
+  <asd>asd</asd>
+  <stats>
+    <Hirpoints>1</Hirpoints>
+    <Attack>1</Attack>
+    <Strength>1</Strength>
+    <Defence>1</Defence>
+    <Magic>1</Magic>
+  </stats>
+</player>
