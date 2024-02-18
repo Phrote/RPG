@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="main.GUI">
+  <grid id="27dc6" layout-manager="BorderLayout" hgap="0" vgap="0">
+    <constraints>
+      <xy x="20" y="20" width="500" height="254"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <component id="e9c22" class="javax.swing.JTextArea" binding="outputArea">
+        <constraints border-constraint="Center"/>
+        <properties>
+          <background color="-1026"/>
+          <editable value="false"/>
+          <enabled value="false"/>
+          <lineWrap value="true"/>
+          <preferredSize width="500" height="250"/>
+        </properties>
+      </component>
+      <splitpane id="9bc2e">
+        <constraints border-constraint="South"/>
+        <properties>
+          <orientation value="1"/>
+        </properties>
+        <border type="bevel-lowered"/>
+        <children>
+          <splitpane id="583dc">
+            <constraints>
+              <splitpane position="left"/>
+            </constraints>
+            <properties>
+              <orientation value="0"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="14f55" class="javax.swing.JTextArea" binding="pastInputs">
+                <constraints>
+                  <splitpane position="left"/>
+                </constraints>
+                <properties>
+                  <editable value="false"/>
+                  <enabled value="false"/>
+                  <maximumSize width="250" height="200"/>
+                  <preferredSize width="250" height="220"/>
+                </properties>
+              </component>
+              <component id="1492" class="javax.swing.JTextField" binding="inputField">
+                <constraints>
+                  <splitpane position="right"/>
+                </constraints>
+                <properties>
+                  <maximumSize width="250" height="50"/>
+                  <preferredSize width="250" height="30"/>
+                </properties>
+              </component>
+            </children>
+          </splitpane>
+          <component id="dff12" class="javax.swing.JTable" binding="inventory">
+            <constraints>
+              <splitpane position="right"/>
+            </constraints>
+            <properties>
+              <enabled value="false"/>
+              <maximumSize width="250" height="32"/>
+              <preferredSize width="250" height="250"/>
+            </properties>
+          </component>
+        </children>
+      </splitpane>
+    </children>
+  </grid>
+</form>

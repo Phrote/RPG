@@ -1,39 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Project/Maven2/JavaApp/src/main/java/${packagePath}/${mainClassName}.java to edit this template
- */
 package main;
 
-import Classes.Player;
-import java.util.Scanner;
+import classes.Player;
 
 /**
  *
  * @author ecsidav
  */
 public class Game {
-
+    public static GUI gui;
     public static Player player;
-
     public static void main(String[] args) {
-        String input = "";
-        Scanner sc = new Scanner(System.in);
+        gui = new GUI();
         Menus.mainMenu();
-
-        while (true) {
-            input = sc.nextLine();
-            switch (input) {
-                case "menu":
-                    Menus.mainMenu();
-                    break;
-                case "save":
-                    Commands.saveGame();
-                    break;
-                case "exit":
-                case "quit":
-                    System.exit(0);
-                    break;
-            }
-        }
     }
+
+
 }

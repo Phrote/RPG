@@ -4,7 +4,9 @@
  */
 package main;
 
-import Classes.Player;
+import classes.Player;
+import interfaces.QuestionHandler;
+
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -12,11 +14,26 @@ import java.util.regex.Pattern;
  *
  * @author ecsidav
  */
-public class Commands {
+public class Commands implements QuestionHandler {
 
-    private static Scanner sc = new Scanner(System.in);
+    private static final Commands commands = new Commands();
     private static final Pattern namePattern = Pattern.compile("[a-zA-Z0-9]+", Pattern.CASE_INSENSITIVE);
 
+    public void handleAnswer(String answer) {
+        if (!namePattern.matcher(answer).find()) {
+            Game.gui.appendToOutputArea("Name contains invalid characters.");
+
+        } else {
+            Game.player = new Player(answer);
+            return;
+        }
+//        switch(answer) {
+//            case "save":
+//                saveGame();
+//                break;
+//
+//        }
+    }
     public static void saveGame() {
         System.out.println("Saving...");
         Game.player.save();
@@ -30,17 +47,8 @@ public class Commands {
     }
 
     public static void newGame() {
-
-        while (true) {
-            System.out.println("Enter Character Name: ");
-            String name = sc.nextLine();
-            if (!namePattern.matcher(name).find()) {
-                System.out.println("Name contains invalid characters.");
-            } else {
-                Game.player = new Player(name);
-                return;
-            }
-        }
+        String question = "Enter Character Name:";
+        Utils.askQuestion(question, commands);
     }
 
 }
