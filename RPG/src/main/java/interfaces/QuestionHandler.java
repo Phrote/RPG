@@ -1,5 +1,5 @@
 package interfaces;
 
 public interface QuestionHandler {
-    public void handleAnswer(String answer);
+    public void handleAnswer(String answer, String info);
 }

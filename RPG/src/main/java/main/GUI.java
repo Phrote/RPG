@@ -3,13 +3,18 @@ package main;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.Arrays;
+
 
 public class GUI {
 
     private Container cont;
+    private JMenuBar menuBar;
+    private JMenu menu;
+    private JMenuItem save, load, exit;
     private JTextArea outputArea;
     private JTextArea pastInputs;
     private JTextField inputField;
@@ -18,35 +23,83 @@ public class GUI {
     public GUI() {
         JFrame frame = new JFrame("RPG");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500,530);
+        frame.setSize(520,565);
 
         Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 
         cont = frame.getContentPane();
-        cont.setLayout(null);
+        cont.setLayout(new GridBagLayout());
 
-        this.outputArea.setSize(496, 247);
-        this.outputArea.setLocation(1, 1);
+        this.outputArea = new JTextArea();
+        this.pastInputs = new JTextArea();
+        this.inputField = new JTextField();
+        this.inventory = new JTable();
+
+        this.save = new JMenuItem("Save");
+        this.load = new JMenuItem("Load");
+        this.exit = new JMenuItem("Exit");
+
+        this.menu = new JMenu("Game");
+        this.menu.add(this.save);
+        this.menu.add(this.load);
+        this.menu.add(this.exit);
+
+        this.menuBar = new JMenuBar();
+        this.menuBar.setSize(500,30);
+        this.menuBar.add(this.menu);
+
+        this.menuBar.setBorder(border);
+
         this.outputArea.setBorder(border);
-        cont.add(this.outputArea);
+        this.outputArea.setPreferredSize(new Dimension(500,250));
 
-        this.pastInputs.setSize(246, 228);
-        this.pastInputs.setLocation(1, 251);
         this.pastInputs.setBorder(border);
-        cont.add(this.pastInputs);
+        this.pastInputs.setPreferredSize(new Dimension(250,230));
 
-        this.inputField.setSize(246, 18);
-        this.inputField.setLocation(1, 482);
-        cont.add(this.inputField);
         this.inputField.setBorder(border);
+        this.inputField.setPreferredSize(new Dimension(250,20));
 
-        this.inventory.setSize(246, 248);
-        this.inventory.setLocation(251, 251);
-        cont.add(this.inventory);
         this.inventory.setBorder(border);
+        this.inventory.setPreferredSize(new Dimension(250,250));
+
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        gbc.ipadx = 2;
+        gbc.ipady = 0;
+
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        frame.add(this.menuBar, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 2;
+        this.outputArea.setEditable(false);
+        frame.add(this.outputArea, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 1;
+        this.pastInputs.setEditable(false);
+        frame.add(this.pastInputs, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.gridwidth = 1;
+        frame.add(this.inputField, gbc);
+
+        gbc.gridheight = 2;
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        frame.add(this.inventory, gbc);
+        this.inputField.setSize(200,200);
+//        frame.pack();
 
 
-        inputField.addKeyListener(new KeyAdapter() {
+
+        this.inputField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
@@ -55,6 +108,26 @@ public class GUI {
                 }
             }
         });
+
+        this.save.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Commands.saveGame();
+            }
+        });
+        this.load.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Commands.loadGame();
+            }
+        });
+        this.exit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+
 
         frame.setVisible(true);
     }
@@ -68,10 +141,15 @@ public class GUI {
     }
 
     public void handleInput() {
-        String input = inputField.getText();
+        if(Utils.questionHandler == null) {
+            Utils.questionHandler = Game.commands;
+        }
+        String input = this.inputField.getText();
         this.pastInputs.append(this.inputField.getText() + "\n");
         this.clearUserInput();
-        Utils.questionHandler.handleAnswer(input);
+        System.out.println(Utils.questionHandler == null);
+        Utils.questionHandler.handleAnswer(input, Utils.questionInfo);
+
     }
 
     public void clearUserInput() {
@@ -90,4 +168,7 @@ public class GUI {
         outputArea.setText("");
     }
 
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
+    }
 }
