@@ -5,36 +5,28 @@
 package classes;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.regex.Pattern;
 
-import interfaces.QuestionHandler;
+import interfaces.InputHandler;
 import main.Game;
+import main.Text;
 import main.Utils;
 
 
-public class Player implements QuestionHandler {
+public class Player implements InputHandler {
 
     public String name;
     public ArrayList<Stat> stats = new ArrayList<>();
     private static final Pattern namePattern = Pattern.compile("[a-zA-Z0-9]+", Pattern.CASE_INSENSITIVE);
 
+    public ArrayList<String> infos = new ArrayList<>(
+            Arrays.asList("player_name"));
 
     public Player() {
         for (String s : Utils.playerSkills) {
             this.stats.add(new Stat(s));
         }
-    }
-
-    public Player(String name) {
-        this.name = name;
-        for (String s : Utils.playerSkills) {
-            this.stats.add(new Stat(s));
-        }
-    }
-
-    public Player(String name, ArrayList<Stat> stats) {
-        this.name = name;
-        this.stats = stats;
     }
 
     @Override
@@ -47,14 +39,19 @@ public class Player implements QuestionHandler {
     }
 
     @Override
-    public void handleAnswer(String answer, String info) {
+    public boolean isHandleInput(String input, String info) {
+        return infos.contains(info);
+    }
+
+    @Override
+    public void handleInput(String answer, String info) {
         switch(info) {
-            case "name":
+            case "player_name":
                 if (!namePattern.matcher(answer).find()) {
                     Game.gui.appendToOutputArea("Name contains invalid characters.");
                 } else {
                     this.name = answer;
-                    Utils.questionHandler = null;
+                    Utils.askGeneralQuestion();
                 }
                 break;
 

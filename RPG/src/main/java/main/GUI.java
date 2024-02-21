@@ -15,6 +15,7 @@ public class GUI {
     private JMenuBar menuBar;
     private JMenu menu;
     private JMenuItem save, load, exit;
+    private JScrollPane scrollPane;
     private JTextArea outputArea;
     private JTextArea pastInputs;
     private JTextField inputField;
@@ -30,7 +31,11 @@ public class GUI {
         cont = frame.getContentPane();
         cont.setLayout(new GridBagLayout());
 
-        this.outputArea = new JTextArea();
+        this.outputArea = new JTextArea(10,10);
+        this.outputArea.setLineWrap(true);
+        this.scrollPane = new JScrollPane(this.outputArea);
+        this.scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        this.scrollPane.createVerticalScrollBar();
         this.pastInputs = new JTextArea();
         this.inputField = new JTextField();
         this.inventory = new JTable();
@@ -51,7 +56,7 @@ public class GUI {
         this.menuBar.setBorder(border);
 
         this.outputArea.setBorder(border);
-        this.outputArea.setPreferredSize(new Dimension(500,250));
+        this.scrollPane.setPreferredSize(new Dimension(500,250));
 
         this.pastInputs.setBorder(border);
         this.pastInputs.setPreferredSize(new Dimension(250,230));
@@ -61,7 +66,6 @@ public class GUI {
 
         this.inventory.setBorder(border);
         this.inventory.setPreferredSize(new Dimension(250,250));
-
         GridBagConstraints gbc = new GridBagConstraints();
 
         gbc.ipadx = 2;
@@ -77,7 +81,7 @@ public class GUI {
         gbc.gridy = 1;
         gbc.gridwidth = 2;
         this.outputArea.setEditable(false);
-        frame.add(this.outputArea, gbc);
+        frame.add(this.scrollPane, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 2;
@@ -95,9 +99,6 @@ public class GUI {
         gbc.gridy = 2;
         frame.add(this.inventory, gbc);
         this.inputField.setSize(200,200);
-//        frame.pack();
-
-
 
         this.inputField.addKeyListener(new KeyAdapter() {
             @Override
@@ -132,23 +133,18 @@ public class GUI {
         frame.setVisible(true);
     }
 
-    public String getUserInput() {
-        return this.inputField.getText();
-    }
-
     public void setUserInput(String str) {
         this.inputField.setText(str);
     }
 
     public void handleInput() {
-        if(Utils.questionHandler == null) {
-            Utils.questionHandler = Game.commands;
+        if(Utils.inputHandler == null) {
+            Utils.inputHandler = Game.commands;
         }
         String input = this.inputField.getText();
         this.pastInputs.append(this.inputField.getText() + "\n");
         this.clearUserInput();
-        System.out.println(Utils.questionHandler == null);
-        Utils.questionHandler.handleAnswer(input, Utils.questionInfo);
+        Utils.findInputHandler(input, Utils.questionInfo);
 
     }
 
@@ -168,7 +164,4 @@ public class GUI {
         outputArea.setText("");
     }
 
-    private void createUIComponents() {
-        // TODO: place custom component creation code here
-    }
 }

@@ -5,81 +5,71 @@
 package main;
 
 import classes.Player;
-import interfaces.QuestionHandler;
+import interfaces.InputHandler;
 
-import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Scanner;
-import java.util.regex.Pattern;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import com.google.gson.Gson;
+import jdk.jshell.execution.Util;
 
 /**
  *
  * @author ecsidav
  */
-public class Commands implements QuestionHandler {
+public class Commands implements InputHandler {
 
-    public void handleAnswer(String answer, String info) {
-        switch(answer)
-        {
-            case "1":
-                if(Game.player == null) {
-                    Game.gui.appendToOutputArea("There is no saved game. Please start a New Game.");
-                    break;
-                }
-                Utils.questionHandler = null;
-                break;
-            case "2":
-                Utils.questionHandler = null;
-                Commands.newGame();
-                break;
-            case "3":
-                Utils.questionHandler = null;
-                Commands.loadGame();
-                System.out.println(Game.player.toString());
-                break;
-            case "5":
-            case "exit":
-            case "quit":
-                System.exit(0);
+    public ArrayList<String> commands = new ArrayList<>(
+            Arrays.asList("new game", "load game", "save", "exit", "quit"));
+
+    @Override
+    public boolean isHandleInput(String input, String info) {
+        return this.commands.contains(input);
+    }
+
+    @Override
+    public void handleInput(String answer, String info) {
+        switch(answer) {
+            case "new game":
+                newGame();
                 break;
             case "save":
                 saveGame();
-                Utils.questionHandler = null;
                 break;
-            case "load":
+            case "load game":
                 loadGame();
-                Utils.questionHandler = null;
                 break;
+            case "exit":
+            case "quit":
+                System.exit(0);
         }
-    }
+        Utils.askGeneralQuestion();
 
-    public static void showMainMenu() {
-        Utils.askQuestion(Menus.mainMenuText, Game.commands);
     }
 
     public static void saveGame() {
         Game.gui.appendToOutputArea("\n\nSaving...");
         try {
             FileWriter myWriter = new FileWriter("player.json");
-            myWriter.write(new Gson().toJson(Game.player));
+            myWriter.write(new Gson().toJson(Game.player, Player.class));
 
             myWriter.close();
+            Game.gui.appendToOutputArea("Saving was successful!");
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
-        Game.gui.appendToOutputArea("Saving was successful!");
+
     }
 
     public static void loadGame() {
         try {
             Game.player = new Gson().fromJson(Files.readString(Paths.get("player.json")), Player.class);
+            Game.gui.appendToOutputArea("Loading was successful!");
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
@@ -89,7 +79,8 @@ public class Commands implements QuestionHandler {
     public static void newGame() {
         String question = "Enter Character Name:";
         Game.player = new Player();
-        Utils.askQuestion(question, Game.player, "name");
+        Utils.inputHandlers.add(Game.player);
+        Utils.askQuestion(question, Game.player, "player_name");
     }
 
 }
