@@ -1,5 +1,7 @@
 package storage;
 
+import main.Utils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,7 +66,7 @@ public class StorageComponent {
         int storedQty = 0;
 
         for(Item item : items) {
-            if(ItemDatabase.getItemInfo(item.id).name.equals(name)) {
+            if(Utils.hammingClose(ItemDatabase.getItemInfo(item.id).name, name)) {
                 storedQty += item.qty;
                 id = item.id;
             }
@@ -75,15 +77,16 @@ public class StorageComponent {
         int qty = textToQty(qtyStr, storedQty);
         return qty == 0 ? null : new Item(id, qty);
     }
+
     //Utility function to get potential quantity part of a text.
     public static String[] separateQty(String text) {
-        String[] prefixes = {"all", "half of", "half", "all but one", "third", "third of", "quarter", "quarter of"};
-        for(String prefix : prefixes) {
-            if(text.startsWith(prefix)) {
-                return new String[]{prefix, text.replace(prefix + " ","")};
-            }
+        String[] prefixes = {"all", "half", "half of", "all but one", "third", "third of", "quarter", "quarter of"};
+        String prefix = Utils.getBestPrefix(prefixes, text);
+        if(prefix == null) {
+            return text.split(" ", 2);
+        } else {
+            return new String[]{prefix, text.replace(prefix + " ","")};
         }
-        return text.split(" ", 2);
     }
     //Utility function to turn a quantity text into number based on the available quantity.
     public static int textToQty(String qty, int storedQty) {
