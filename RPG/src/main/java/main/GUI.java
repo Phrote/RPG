@@ -31,6 +31,9 @@ public class GUI {
         cont = frame.getContentPane();
         cont.setLayout(new GridBagLayout());
 
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        frame.setLocation(dim.width / 2 - frame.getSize().width / 2, dim.height / 2 - frame.getSize().height / 2);
+
         this.outputArea = new JTextArea(10,10);
         this.outputArea.setLineWrap(true);
         this.scrollPane = new JScrollPane(this.outputArea);
@@ -138,9 +141,9 @@ public class GUI {
     }
 
     public void handleInput() {
-        if(Utils.inputHandler == null) {
-            Utils.inputHandler = Game.commands;
-        }
+//        if(Utils.inputHandler == null) {
+//            Utils.inputHandler = Game.commands;
+//        }
         String input = this.inputField.getText();
         this.pastInputs.append(this.inputField.getText() + "\n");
         this.clearUserInput();
@@ -157,7 +160,7 @@ public class GUI {
     }
 
     public void appendToOutputArea(String str) {
-        this.outputArea.append("\n" + str);
+        this.outputArea.append(str + "\n");
     }
 
     public void clearOutputArea(){

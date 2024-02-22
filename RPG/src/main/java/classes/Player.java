@@ -20,6 +20,8 @@ public class Player implements InputHandler {
     public ArrayList<Stat> stats = new ArrayList<>();
     private static final Pattern namePattern = Pattern.compile("[a-zA-Z0-9]+", Pattern.CASE_INSENSITIVE);
 
+    public ArrayList<String> commands = new ArrayList<>(
+            Arrays.asList("show self"));
     public ArrayList<String> infos = new ArrayList<>(
             Arrays.asList("player_name"));
 
@@ -31,7 +33,7 @@ public class Player implements InputHandler {
 
     @Override
     public String toString() {
-        String result = "\n" + this.name + "\n------------\n";
+        String result = this.name + "\n------------\n";
         for (Stat stat : this.stats) {
             result = result.concat(stat.toString() + "\n");
         }
@@ -39,22 +41,40 @@ public class Player implements InputHandler {
     }
 
     @Override
-    public boolean isHandleInput(String input, String info) {
-        return infos.contains(info);
+    public String isHandleInput(String input, String info) {
+        System.out.println(input);
+        for(String s : this.commands) {
+            if(Utils.hammingClose(s, input)) {
+                return s;
+            }
+        }
+        for(String s : this.infos) {
+            if(Utils.hammingClose(s, info)) {
+                return s;
+            }
+        }
+        return "";
     }
 
     @Override
-    public void handleInput(String answer, String info) {
-        switch(info) {
-            case "player_name":
-                if (!namePattern.matcher(answer).find()) {
-                    Game.gui.appendToOutputArea("Name contains invalid characters.");
-                } else {
-                    this.name = answer;
-                    Utils.askGeneralQuestion();
-                }
+    public void handleInput(String input, String info) {
+        switch(input) {
+            case "show self":
+                Game.gui.appendToOutputArea(Game.player.toString());
                 break;
+        }
+        if(!info.isEmpty()) {
+            switch(info) {
+                case "player_name":
+                    if (!namePattern.matcher(input).find()) {
+                        Game.gui.appendToOutputArea("Name contains invalid characters.");
+                    } else {
+                        this.name = input;
+                        Utils.askGeneralQuestion();
+                    }
+                    break;
 
+            }
         }
     }
 }
