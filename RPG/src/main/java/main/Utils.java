@@ -54,7 +54,17 @@ public class Utils {
         return dist <= max;
     }
 
-
+    public static String getBestPrefix(String[] prefixes, String text) {
+        String longestPrefix = null;
+        for(String prefix : prefixes) {
+            if(text.startsWith(prefix)) {
+                if(longestPrefix == null || prefix.length() > longestPrefix.length()) {
+                    longestPrefix = prefix;
+                }
+            }
+        }
+        return longestPrefix;
+    }
     public static void showMainMenu() {
         askQuestion(Text.mainMenuText, Game.commands);
     }
