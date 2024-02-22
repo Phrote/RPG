@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package main;
 
 import classes.Player;
@@ -15,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import com.google.gson.Gson;
-import jdk.jshell.execution.Util;
 
 /**
  *
@@ -27,8 +22,13 @@ public class Commands implements InputHandler {
             Arrays.asList("new game", "load game", "save", "exit", "quit"));
 
     @Override
-    public boolean isHandleInput(String input, String info) {
-        return this.commands.contains(input);
+    public String isHandleInput(String input, String info) {
+        for(String s : this.commands) {
+            if(Utils.hammingClose(s, input)) {
+                return s;
+            }
+        }
+        return "";
     }
 
     @Override
@@ -47,8 +47,6 @@ public class Commands implements InputHandler {
             case "quit":
                 System.exit(0);
         }
-        Utils.askGeneralQuestion();
-
     }
 
     public static void saveGame() {
@@ -59,6 +57,8 @@ public class Commands implements InputHandler {
 
             myWriter.close();
             Game.gui.appendToOutputArea("Saving was successful!");
+            Utils.askGeneralQuestion();
+
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
@@ -69,7 +69,11 @@ public class Commands implements InputHandler {
     public static void loadGame() {
         try {
             Game.player = new Gson().fromJson(Files.readString(Paths.get("player.json")), Player.class);
+            Utils.inputHandlers.add(Game.player);
+            Game.gui.clearOutputArea();
             Game.gui.appendToOutputArea("Loading was successful!");
+            Utils.askGeneralQuestion();
+
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
