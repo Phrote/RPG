@@ -20,4 +20,12 @@ public class ItemDatabase {
     public static ItemInfo getItemInfo(String id) {
         return database.get(id);
     }
+//    public static Item getItemFromName(String name, int qty) {
+//        for (var entry : database.entrySet()) {
+//            if(entry.getValue().name == name) {
+//                return new Item(entry.getKey(),qty);
+//            }
+//        }
+//        return null;
+//    }
 }

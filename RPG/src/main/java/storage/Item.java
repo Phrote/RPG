@@ -14,4 +14,9 @@ public class Item {
     public List<String> getString() {
         return List.of(ItemDatabase.getItemInfo(id).name, qty > 1 ? (String.valueOf(qty) + "x") : "");
     }
+
+    @Override
+    public String toString() {
+        return qty + " " + ItemDatabase.getItemInfo(id).name;
+    }
 }
