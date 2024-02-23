@@ -4,10 +4,12 @@ import interfaces.InputHandler;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 
 public class Utils {
 
+    public static Random rand = new Random();
     public static InputHandler inputHandler;
     public static String questionInfo;
 
@@ -71,5 +73,10 @@ public class Utils {
 
     public static void askGeneralQuestion() {
         askQuestion(Text.generalQuestionText, Game.commands);
+    }
+
+    public static int getRandomInRange(int min, int max)
+    {
+        return rand.nextInt(max-min) + min;
     }
 }

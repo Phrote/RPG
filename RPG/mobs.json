@@ -1,0 +1,155 @@
+{
+  "slime": {
+    "maxStack": 3,
+    "name": "Slime",
+    "skills": [
+      {
+        "name": "Hitpoints",
+        "value": 10
+      },
+      {
+        "name": "Attack",
+        "value": 1
+      },
+      {
+        "name": "Strength",
+        "value": 1
+      },
+      {
+        "name": "Defence",
+        "value": 1
+      },
+      {
+        "name": "Magic",
+        "value": 1
+      },
+      {
+        "name": "Ranged",
+        "value": 1
+      }
+    ],
+    "dropTable": {
+      "dropTable": [
+        {
+          "id": "jelly",
+          "minQty": 1,
+          "maxQty": 3,
+          "chance": 0.6
+        }
+      ]
+    },
+    "tags": []
+  },
+  "goblin": {
+    "maxStack": 1,
+    "name": "Goblin",
+    "skills": [
+      {
+        "name": "Hitpoints",
+        "value": 10
+      },
+      {
+        "name": "Attack",
+        "value": 1
+      },
+      {
+        "name": "Strength",
+        "value": 1
+      },
+      {
+        "name": "Defence",
+        "value": 2
+      },
+      {
+        "name": "Magic",
+        "value": 1
+      },
+      {
+        "name": "Ranged",
+        "value": 1
+      }
+    ],
+    "dropTable": {
+      "dropTable": [
+        {
+          "id": "bones",
+          "minQty": 1,
+          "maxQty": 1,
+          "chance": 1.0
+        },
+        {
+          "id": "apple",
+          "minQty": 1,
+          "maxQty": 1,
+          "chance": 0.4
+        },
+        {
+          "id": "knife",
+          "minQty": 1,
+          "maxQty": 1,
+          "chance": 0.2
+        },
+        {
+          "id": "bow",
+          "minQty": 1,
+          "maxQty": 1,
+          "chance": 0.1
+        }
+      ]
+    },
+    "tags": []
+  },
+  "cow": {
+    "maxStack": 10,
+    "name": "Cow",
+    "skills": [
+      {
+        "name": "Hitpoints",
+        "value": 5
+      },
+      {
+        "name": "Attack",
+        "value": 1
+      },
+      {
+        "name": "Strength",
+        "value": 1
+      },
+      {
+        "name": "Defence",
+        "value": 1
+      },
+      {
+        "name": "Magic",
+        "value": 1
+      },
+      {
+        "name": "Ranged",
+        "value": 1
+      }
+    ],
+    "dropTable": {
+      "dropTable": [
+        {
+          "id": "bones",
+          "minQty": 1,
+          "maxQty": 1,
+          "chance": 1.0
+        },
+        {
+          "id": "leather",
+          "minQty": 1,
+          "maxQty": 1,
+          "chance": 1.0
+        },
+        {
+          "id": "meat",
+          "minQty": 1,
+          "maxQty": 1,
+          "chance": 1.0
+        }
+      ]
+    },
+    "tags": []
+  }
+}
