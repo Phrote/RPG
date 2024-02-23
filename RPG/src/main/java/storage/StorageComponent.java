@@ -57,6 +57,15 @@ public class StorageComponent {
         }
     }
 
+    public void transfer(StorageComponent target, Item item) {
+        Item rem = target.place(item);
+        if(rem == null) {
+            this.remove(item);
+        } else {
+            this.remove(new Item(item.id, item.qty - rem.qty));
+        }
+    }
+
     //Convert text to Item struct.
     public Item textToItem(String text) {
         String[] parts = separateQty(text);
@@ -80,7 +89,7 @@ public class StorageComponent {
 
     //Utility function to get potential quantity part of a text.
     public static String[] separateQty(String text) {
-        String[] prefixes = {"all", "half", "half of", "all but one", "third", "third of", "quarter", "quarter of"};
+        String[] prefixes = {"all", "all of", "every", "each", "half", "half of", "all but one", "third", "third of", "quarter", "quarter of", "a", "an"};
         String prefix = Utils.getBestPrefix(prefixes, text);
         if(prefix == null) {
             return text.split(" ", 2);
@@ -91,7 +100,13 @@ public class StorageComponent {
     //Utility function to turn a quantity text into number based on the available quantity.
     public static int textToQty(String qty, int storedQty) {
         switch (qty) {
+            case "a":
+            case "an":
+                return 1;
             case "all":
+            case "every":
+            case "each":
+            case "all of":
                 return storedQty;
             case "half of":
             case "half":
@@ -106,11 +121,29 @@ public class StorageComponent {
                 return storedQty - 1;
             default:
                 try {
-                    return Integer.parseInt(qty);
+                    return Math.min(storedQty,Integer.parseInt(qty));
                 } catch (NumberFormatException e) {
                     return 0;
                 }
         }
+    }
+
+    public int count(String id) {
+        int storedQty = 0;
+        for(Item item : items) {
+            if(item.id == id) {
+                storedQty += item.qty;
+            }
+        }
+        return storedQty;
+    }
+
+    public int getFilledSlots() {
+        return items.size();
+    }
+
+    public int getEmptySlots() {
+        return size - items.size();
     }
 
     @Override

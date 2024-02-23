@@ -19,4 +19,9 @@ public class Item {
     public String toString() {
         return qty + " " + ItemDatabase.getItemInfo(id).name;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return ((Item)obj).id == this.id && ((Item)obj).qty == this.qty;
+    }
 }
