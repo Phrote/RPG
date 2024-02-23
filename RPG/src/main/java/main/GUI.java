@@ -141,9 +141,6 @@ public class GUI {
     }
 
     public void handleInput() {
-//        if(Utils.inputHandler == null) {
-//            Utils.inputHandler = Game.commands;
-//        }
         String input = this.inputField.getText();
         this.pastInputs.append(this.inputField.getText() + "\n");
         this.clearUserInput();

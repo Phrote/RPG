@@ -2,10 +2,6 @@ package main;
 
 import classes.Player;
 
-/**
- *
- * @author ecsidav
- */
 public class Game {
 
     public static GUI gui;

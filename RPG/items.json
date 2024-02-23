@@ -1,0 +1,51 @@
+{
+  "bone": {
+    "name": "Bone",
+    "description": "A precious test item",
+    "maxStack": 10,
+    "tags": [],
+    "data": {}
+  },
+  "beef": {
+    "name": "Beef",
+    "description": "",
+    "maxStack": 10,
+    "tags": [],
+    "data": {}
+  },
+  "leather": {
+    "name": "Leather",
+    "description": "",
+    "maxStack": 20,
+    "tags": [],
+    "data": {}
+  },
+  "jelly": {
+    "name": "Jelly",
+    "description": "",
+    "maxStack": 20,
+    "tags": [],
+    "data": {}
+  },
+  "apple": {
+    "name": "Apple",
+    "description": "",
+    "maxStack": 10,
+    "tags": [],
+    "data": {}
+  },
+  "knife": {
+    "name": "Knife",
+    "description": "",
+    "maxStack": 1,
+    "tags": [],
+    "data": {}
+  },
+  "bow": {
+    "name": "Bow",
+    "description": "",
+    "maxStack": 1,
+    "tags": [],
+    "data": {}
+  }
+}
