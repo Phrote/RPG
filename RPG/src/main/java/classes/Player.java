@@ -10,14 +10,16 @@ import java.util.regex.Pattern;
 
 import interfaces.InputHandler;
 import main.Game;
-import main.Text;
-import main.Utils;
+import utils.Utils;
+import storage.StorageComponent;
 
 
 public class Player implements InputHandler {
 
     public String name;
     public ArrayList<Stat> stats = new ArrayList<>();
+    public Gear gear = new Gear();
+    public StorageComponent inventory = new StorageComponent(10);
     private static final Pattern namePattern = Pattern.compile("[a-zA-Z0-9]+", Pattern.CASE_INSENSITIVE);
 
     public ArrayList<String> commands = new ArrayList<>(
@@ -71,6 +73,7 @@ public class Player implements InputHandler {
                     } else {
                         this.name = input;
                         Utils.askGeneralQuestion();
+                        Game.gui.updateGearGUI();
                     }
                     break;
 

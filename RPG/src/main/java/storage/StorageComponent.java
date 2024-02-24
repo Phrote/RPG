@@ -1,6 +1,7 @@
 package storage;
 
-import main.Utils;
+import main.Game;
+import utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,7 @@ public class StorageComponent {
             items.add(new Item(item.id, qty));
             remQty -= qty;
         }
-
+        Game.gui.updateInventoryGUI();
         return remQty > 0 ? new Item(item.id, remQty) : null;
     }
 
@@ -64,6 +65,7 @@ public class StorageComponent {
         } else {
             this.remove(new Item(item.id, item.qty - rem.qty));
         }
+        Game.gui.updateInventoryGUI();
     }
 
     //Convert text to Item struct.
