@@ -1,5 +1,7 @@
 package main;
 
+import utils.Utils;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -12,19 +14,26 @@ import java.awt.event.KeyEvent;
 public class GUI {
 
     private Container cont;
+
     private JMenuBar menuBar;
     private JMenu menu;
     private JMenuItem save, load, exit;
-    private JScrollPane scrollPane;
+
+    private JScrollPane outputScrollPane;
+    private JScrollPane invScrollPane;
+    private JScrollPane gearScrollPane;
+    private JScrollPane pastInputScrollPane;
     private JTextArea outputArea;
     private JTextArea pastInputs;
     private JTextField inputField;
-    private JTable inventory;
+    private JTextArea invArea;
+    private JTextArea gearArea;
+    private JTabbedPane tabbedPane;
 
     public GUI() {
         JFrame frame = new JFrame("RPG");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(520,565);
+        frame.setSize(530,585);
 
         Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 
@@ -33,15 +42,6 @@ public class GUI {
 
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         frame.setLocation(dim.width / 2 - frame.getSize().width / 2, dim.height / 2 - frame.getSize().height / 2);
-
-        this.outputArea = new JTextArea(10,10);
-        this.outputArea.setLineWrap(true);
-        this.scrollPane = new JScrollPane(this.outputArea);
-        this.scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        this.scrollPane.createVerticalScrollBar();
-        this.pastInputs = new JTextArea();
-        this.inputField = new JTextField();
-        this.inventory = new JTable();
 
         this.save = new JMenuItem("Save");
         this.load = new JMenuItem("Load");
@@ -55,20 +55,49 @@ public class GUI {
         this.menuBar = new JMenuBar();
         this.menuBar.setSize(500,30);
         this.menuBar.add(this.menu);
-
         this.menuBar.setBorder(border);
 
-        this.outputArea.setBorder(border);
-        this.scrollPane.setPreferredSize(new Dimension(500,250));
+        this.outputArea = new JTextArea(10,10);
+        this.outputArea.setLineWrap(true);
+        this.outputScrollPane = new JScrollPane(this.outputArea);
+        this.outputScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        this.outputScrollPane.createVerticalScrollBar();
+        this.outputScrollPane.setBorder(border);
+        this.outputScrollPane.setPreferredSize(new Dimension(500,250));
 
-        this.pastInputs.setBorder(border);
-        this.pastInputs.setPreferredSize(new Dimension(250,230));
+        this.invArea = new JTextArea();
+        this.invArea.setLineWrap(true);
+        this.invScrollPane = new JScrollPane(this.invArea);
+        this.invScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        this.invScrollPane.createVerticalScrollBar();
+        this.invScrollPane.setPreferredSize(new Dimension(250,220));
 
+        this.gearArea = new JTextArea(5,10);
+        this.gearArea.setLineWrap(true);
+        this.gearArea.setEditable(false);
+        this.gearScrollPane = new JScrollPane(this.gearArea);
+        this.gearScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        this.gearScrollPane.createVerticalScrollBar();
+        this.gearScrollPane.setPreferredSize(new Dimension(250,220));
+
+        this.tabbedPane = new JTabbedPane();
+        this.tabbedPane.addTab("Inventory", this.invScrollPane);
+        this.tabbedPane.addTab("Gear", this.gearScrollPane);
+
+        this.pastInputs = new JTextArea();
+        this.pastInputScrollPane = new JScrollPane(this.pastInputs);
+        this.pastInputScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        this.pastInputScrollPane.createVerticalScrollBar();
+        this.pastInputScrollPane.setBorder(border);
+        this.pastInputScrollPane.setPreferredSize(new Dimension(250,250));
+
+        this.inputField = new JTextField();
         this.inputField.setBorder(border);
         this.inputField.setPreferredSize(new Dimension(250,20));
 
-        this.inventory.setBorder(border);
-        this.inventory.setPreferredSize(new Dimension(250,250));
+
+        this.tabbedPane.setBorder(border);
+        this.tabbedPane.setSize(250,250);
         GridBagConstraints gbc = new GridBagConstraints();
 
         gbc.ipadx = 2;
@@ -84,13 +113,13 @@ public class GUI {
         gbc.gridy = 1;
         gbc.gridwidth = 2;
         this.outputArea.setEditable(false);
-        frame.add(this.scrollPane, gbc);
+        frame.add(this.outputScrollPane, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.gridwidth = 1;
         this.pastInputs.setEditable(false);
-        frame.add(this.pastInputs, gbc);
+        frame.add(this.pastInputScrollPane, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 3;
@@ -100,7 +129,7 @@ public class GUI {
         gbc.gridheight = 2;
         gbc.gridx = 1;
         gbc.gridy = 2;
-        frame.add(this.inventory, gbc);
+        frame.add(this.tabbedPane, gbc);
         this.inputField.setSize(200,200);
 
         this.inputField.addKeyListener(new KeyAdapter() {
@@ -163,5 +192,11 @@ public class GUI {
     public void clearOutputArea(){
         outputArea.setText("");
     }
+
+    public void updateInventoryGUI() {
+        this.invArea.setText(Game.player.inventory.toString());
+    }
+
+    public void updateGearGUI() {this.gearArea.setText(Game.player.gear.toString()); }
 
 }

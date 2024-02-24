@@ -1,0 +1,57 @@
+{
+  "thomas": {
+    "description": "Our first NPC",
+    "chatList": {
+      "list": [
+        {
+          "key": "welcome",
+          "value": "Welcome to out new game!"
+        }
+      ]
+    },
+    "name": "Thomas the First",
+    "skills": [
+      {
+        "name": "Hitpoints",
+        "value": 1
+      },
+      {
+        "name": "Attack",
+        "value": 1
+      },
+      {
+        "name": "Strength",
+        "value": 1
+      },
+      {
+        "name": "Defence",
+        "value": 1
+      },
+      {
+        "name": "Magic",
+        "value": 1
+      },
+      {
+        "name": "Ranged",
+        "value": 1
+      }
+    ],
+    "dropTable": {
+      "dropTable": [
+        {
+          "id": "bone",
+          "minQty": 1,
+          "maxQty": 1,
+          "chance": 1.0
+        },
+        {
+          "id": "ring of welcome",
+          "minQty": 1,
+          "maxQty": 1,
+          "chance": 1.0
+        }
+      ]
+    },
+    "tags": []
+  }
+}
