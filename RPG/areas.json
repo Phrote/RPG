@@ -1,0 +1,16 @@
+{
+  "first_forest": {
+    "gatherables": [
+      {
+        "item": "leather",
+        "max": 5
+      }
+    ],
+    "name": "First forest",
+    "description": "Wonderful forest next to the first village",
+    "node": {
+      "x": 2,
+      "y": 1
+    }
+  }
+}
