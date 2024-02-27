@@ -1,6 +1,7 @@
 package main;
 
 import classes.Player;
+import com.google.gson.GsonBuilder;
 import interfaces.InputHandler;
 
 import java.io.FileWriter;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import com.google.gson.Gson;
+import utils.Utils;
 
 /**
  *
@@ -53,7 +55,7 @@ public class Commands implements InputHandler {
         Game.gui.appendToOutputArea("\n\nSaving...");
         try {
             FileWriter myWriter = new FileWriter("player.json");
-            myWriter.write(new Gson().toJson(Game.player, Player.class));
+            myWriter.write(new GsonBuilder().setPrettyPrinting().create().toJson(Game.player, Player.class));
 
             myWriter.close();
             Game.gui.appendToOutputArea("Saving was successful!");
@@ -72,6 +74,8 @@ public class Commands implements InputHandler {
             Utils.inputHandlers.add(Game.player);
             Game.gui.clearOutputArea();
             Game.gui.appendToOutputArea("Loading was successful!");
+            Game.gui.updateGearGUI();
+            Game.gui.updateInventoryGUI();
             Utils.askGeneralQuestion();
 
         } catch (IOException e) {

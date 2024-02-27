@@ -1,7 +1,14 @@
 {
+  "ring of welcome": {
+    "name": "Rinf Of Welcome",
+    "description": "The precious item",
+    "maxStack": 1,
+    "tags": [],
+    "data": {}
+  },
   "bone": {
     "name": "Bone",
-    "description": "A precious test item",
+    "description": "",
     "maxStack": 10,
     "tags": [],
     "data": {}

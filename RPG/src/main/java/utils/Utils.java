@@ -1,6 +1,7 @@
-package main;
+package utils;
 
 import interfaces.InputHandler;
+import main.Game;
 
 import java.util.ArrayList;
 import java.util.Arrays;
