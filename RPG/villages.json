@@ -1,0 +1,10 @@
+{
+  "first_village": {
+    "name": "First village",
+    "description": "The very first village that was created in the land",
+    "node": {
+      "x": 0,
+      "y": 0
+    }
+  }
+}
