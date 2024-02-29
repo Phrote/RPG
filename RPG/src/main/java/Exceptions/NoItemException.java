@@ -1,9 +1,11 @@
 package Exceptions;
 
-import storage.ItemDatabase;
+import item.ItemDatabase;
+import main.Game;
 
 public class NoItemException extends Exception {
     public NoItemException(String itemId) {
-        super("There is no " + ItemDatabase.getItemInfo(itemId).name + " in your inventory!");
+        Game.gui.appendToOutputArea("There is no " + ItemDatabase.getItemInfo(itemId).name + " in your inventory!");
+//        super("There is no " + ItemDatabase.getItemInfo(itemId).name + " in your inventory!");
     }
 }

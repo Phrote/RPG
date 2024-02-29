@@ -1,6 +1,6 @@
 package classes.npc.mob;
 
-import storage.ItemDatabase;
+import item.ItemDatabase;
 
 import java.util.List;
 

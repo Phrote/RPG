@@ -1,4 +1,4 @@
-package storage;
+package item;
 
 import main.Game;
 import utils.Utils;
@@ -130,10 +130,19 @@ public class StorageComponent {
         }
     }
 
+    public String getItemIdByName(String name) {
+        for(Item item : items) {
+            if(ItemDatabase.getItemInfo(item.id).name.equals(name)) {
+                return item.id;
+            }
+        }
+        return null;
+    }
+
     public int count(String id) {
         int storedQty = 0;
         for(Item item : items) {
-            if(item.id == id) {
+            if(item.id.equals(id)) {
                 storedQty += item.qty;
             }
         }

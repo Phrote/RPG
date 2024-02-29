@@ -70,7 +70,7 @@ public class Commands implements InputHandler {
 
     public static void loadGame() {
         try {
-            Game.player = new Gson().fromJson(Files.readString(Paths.get("mobs.json")), Player.class);
+            Game.player = new Gson().fromJson(Files.readString(Paths.get("player.json")), Player.class);
             Utils.inputHandlers.add(Game.player);
             Game.gui.clearOutputArea();
             Game.gui.appendToOutputArea("Loading was successful!");

@@ -1,6 +1,6 @@
 package classes.npc.villager;
 
-import storage.ItemDatabase;
+import item.ItemDatabase;
 
 import java.util.List;
 

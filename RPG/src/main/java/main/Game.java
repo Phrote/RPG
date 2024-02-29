@@ -1,12 +1,12 @@
 package main;
 
+import Exceptions.FullInvnetoryException;
+import Exceptions.LvlReqNotMetexception;
+import Exceptions.NoAvailableSlotsException;
 import Exceptions.NoItemException;
 import classes.Player;
 
-import classes.npc.mob.MobDatabase;
-import classes.npc.villager.VillagerDatabase;
-import storage.Item;
-import storage.ItemDatabase;
+import item.Item;
 import utils.Utils;
 
 public class Game {
@@ -19,17 +19,25 @@ public class Game {
     public static void main(String[] args) {
         gui = new GUI();
         Utils.showMainMenu();
-//        Commands.loadGame();
-//        player.inventory.place(new Item("apple", 5));
-//        player.inventory.place(new Item("bow", 1));
-//        player.inventory.place(new Item("bone", 10));
-//        player.inventory.place(new Item("knife", 30));
+        Commands.loadGame();
 
-//        try {
-//            player.gear.wearGear("bow", "weapon");
-//        } catch (NoItemException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            Game.player.gear.equip("Bronze helm");
+            Game.player.gear.equip("Bronze platebody");
+            Game.player.gear.equip("Bronze shoulder");
+            Game.player.gear.equip("Bronze plateleg");
+            Game.player.gear.equip("Bronze sword");
+            Game.player.gear.equip("Bronze boots");
+            Game.player.gear.equip("Bronze gloves");
+            Game.player.gear.equip("Fire cape");
+            Game.player.gear.equip("Ring of Soup");
+            Game.player.gear.equip("Ring of Bread");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            gui.appendToOutputArea(e.getLocalizedMessage());
+        }
+
+
     }
 
 

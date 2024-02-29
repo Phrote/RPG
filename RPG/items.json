@@ -4,7 +4,8 @@
     "description": "The precious item",
     "maxStack": 1,
     "tags": [],
-    "data": {}
+    "data": {
+    "equipment":"ring"}
   },
   "bone": {
     "name": "Bone",
@@ -53,6 +54,125 @@
     "description": "",
     "maxStack": 1,
     "tags": [],
-    "data": {}
+    "data": {
+      "equipment": "Weapon"
+    }
+  },
+  "bow of god": {
+    "name": "Bow of God",
+    "description": "",
+    "maxStack": 1,
+    "tags": [],
+    "data": {
+      "equipment": "Weapon"
+    }
+  },
+  "bronze sword": {
+    "name": "Bronze sword",
+    "description": "",
+    "maxStack": 1,
+    "tags": [],
+    "data": {
+      "equipment": "Weapon"
+    }
+  },
+  "bronze arrow": {
+    "name": "Bronze arrow",
+    "description": "",
+    "maxStack": 100,
+    "tags": [],
+    "data": {
+      "equipment": "Ammunition"
+    }
+  },
+  "bronze helm": {
+    "name": "Bronze helm",
+    "description": "",
+    "maxStack": 2,
+    "tags": [],
+    "data": {
+      "equipment": "Helmet"
+    }
+  },
+  "bronze platebody": {
+    "name": "Bronze platebody",
+    "description": "",
+    "maxStack": 2,
+    "tags": [],
+    "data": {
+      "equipment": "Chest"
+    }
+  },
+  "bronze shoulder": {
+    "name": "Bronze shoulder",
+    "description": "",
+    "maxStack": 1,
+    "tags": [],
+    "data": {
+      "equipment": "Shoulder"
+    }
+  },
+  "bronze plateleg": {
+    "name": "Bronze plateleg",
+    "description": "",
+    "maxStack": 1,
+    "tags": [],
+    "data": {
+      "equipment": "Legs"
+    }
+  },
+  "bronze boots": { 
+    "name": "Bronze boots",
+    "description": "",
+    "maxStack": 1,
+    "tags": [],
+    "data": {
+      "equipment": "Feet"
+    }
+  },
+  "bronze gloves": { 
+    "name": "Bronze gloves",
+    "description": "",
+    "maxStack": 1,
+    "tags": [],
+    "data": {
+      "equipment": "Gloves"
+    }
+  },
+  "fire cape": { 
+    "name": "Fire cape",
+    "description": "",
+    "maxStack": 1,
+    "tags": [],
+    "data": {
+      "equipment": "Cape"
+    }
+  },
+  "ring of soup": { 
+    "name": "Ring of Soup",
+    "description": "",
+    "maxStack": 1,
+    "tags": [],
+    "data": {
+      "equipment": "Ring"
+    }
+  },
+  "ring of bread": { 
+    "name": "Ring of Bread",
+    "description": "",
+    "maxStack": 1,
+    "tags": [],
+    "data": {
+      "equipment": "Ring"
+    }
+  },
+  "rune helm": {
+    "name": "Rune helm",
+    "description": "",
+    "maxStack": 1,
+    "tags": [],
+    "data": {
+      "equipment": "Helmet"
+    }
   }
 }

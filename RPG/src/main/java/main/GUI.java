@@ -187,6 +187,7 @@ public class GUI {
 
     public void appendToOutputArea(String str) {
         this.outputArea.append(str + "\n");
+        outputArea.setCaretPosition(outputArea.getDocument().getLength());
     }
 
     public void clearOutputArea(){
