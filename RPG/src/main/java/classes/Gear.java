@@ -55,9 +55,9 @@ public class Gear {
                 WeaponInfo weaponInfo = WeaponDatabase.getWeaponInfo(itemId);
                 equipedId = this.gearList.get(type);
 
-                if((weaponInfo.type.equals("ranged") && Game.player.stats.get(weaponInfo.type).level >= weaponInfo.lvlReq) ||
-                        (weaponInfo.type.equals("melee") && Game.player.stats.get("attack").level >= weaponInfo.lvlReq) ||
-                        (weaponInfo.type.equals("magic") && Game.player.stats.get(weaponInfo.type).level >= weaponInfo.lvlReq)) {
+                if((weaponInfo.type.equals("Ranged") && Game.player.stats.get(weaponInfo.type).level >= weaponInfo.lvlReq) ||
+                        (weaponInfo.type.equals("Attack") && Game.player.stats.get("Attack").level >= weaponInfo.lvlReq) ||
+                        (weaponInfo.type.equals("Magic") && Game.player.stats.get(weaponInfo.type).level >= weaponInfo.lvlReq)) {
                     if(!equipedId.isEmpty()) {
                         if(Game.player.inventory.getEmptySlots() > 0) {
                             Game.player.inventory.place(new Item(equipedId, 1));
@@ -68,12 +68,12 @@ public class Gear {
                     this.gearList.put(type, itemId);
                     Game.player.inventory.remove(new Item(itemId, 1));
                 } else {
-                    throw new LvlReqNotMetexception(Game.player.stats.get(weaponInfo.type).name);
+                    throw new LvlReqNotMetexception(weaponInfo.type);
                 }
                 break;
             case "Ammunition":
                 weaponInfo = WeaponDatabase.getWeaponInfo(itemId);
-                if((weaponInfo.type.equals("ranged") && Game.player.stats.get(weaponInfo.type).level >= weaponInfo.lvlReq)) {
+                if((weaponInfo.type.equals("Ranged") && Game.player.stats.get(weaponInfo.type).level >= weaponInfo.lvlReq)) {
                     if(!this.ammunition.getKey().isEmpty()) {
                         int value = Integer.parseInt(this.ammunition.getValue());
                         int spaceNeeded = (int) Math.ceil((value + Game.player.inventory.count(itemId)) / ItemDatabase.getItemInfo(itemId).maxStack);
@@ -86,13 +86,13 @@ public class Gear {
                     this.ammunition.set(itemId, Integer.toString(Game.player.inventory.count(itemId)));
                     Game.player.inventory.remove(new Item(itemId, Game.player.inventory.count(itemId)));
                 } else {
-                    throw new LvlReqNotMetexception(Game.player.stats.get(weaponInfo.type).name);
+                    throw new LvlReqNotMetexception(weaponInfo.type);
                 }
                 break;
             default:
                 ArmourInfo armourInfo = ArmourDatabase.getArmourInfo(itemId);
                 equipedId = this.gearList.get(type);
-                if(Game.player.stats.get("defence").level >= armourInfo.lvlReq) {
+                if(Game.player.stats.get("Defence").level >= armourInfo.lvlReq) {
                     if(!equipedId.isEmpty()) {
                         if(Game.player.inventory.getEmptySlots() > 0) {
                             Game.player.inventory.place(new Item(equipedId, 1));

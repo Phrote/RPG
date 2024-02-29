@@ -6,6 +6,7 @@ import Exceptions.NoAvailableSlotsException;
 import Exceptions.NoItemException;
 import classes.Player;
 
+import classes.npc.mob.MobDatabase;
 import item.Item;
 import utils.Utils;
 
@@ -20,6 +21,7 @@ public class Game {
         gui = new GUI();
         Utils.showMainMenu();
         Commands.loadGame();
+        System.out.println(MobDatabase.getMobInfo("cow"));
 
         try {
             Game.player.gear.equip("Bronze helm");
@@ -33,7 +35,6 @@ public class Game {
             Game.player.gear.equip("Ring of Soup");
             Game.player.gear.equip("Ring of Bread");
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             gui.appendToOutputArea(e.getLocalizedMessage());
         }
 

@@ -27,8 +27,8 @@ public class Player implements InputHandler {
     public static String[] infos = {"player_name"};
 
     public Player() {
-        for (String s : Utils.playerSkills) {
-            this.stats.put(s.toLowerCase(), new Stat(s));
+        for (var skill : Utils.skills.entrySet()) {
+            this.stats.put(skill.getKey(), new Stat());
         }
     }
 
@@ -36,7 +36,7 @@ public class Player implements InputHandler {
     public String toString() {
         String result = this.name + "\n------------\n";
         for (var stat : this.stats.entrySet()) {
-            result = result.concat(stat.getValue().toString() + "\n");
+            result = result.concat(stat.getKey() + ": " + stat.getValue().toString() + "\n");
         }
         return result;
     }
