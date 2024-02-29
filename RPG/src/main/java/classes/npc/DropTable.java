@@ -1,7 +1,7 @@
 package classes.npc;
 
 import utils.Utils;
-import storage.Item;
+import item.Item;
 
 import java.util.ArrayList;
 

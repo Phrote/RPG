@@ -1,0 +1,53 @@
+{
+  "bronze helm": {
+    "lvlReq": 1,
+    "block": 1,
+    "data": {}
+  },
+  "bronze platebody": {
+    "lvlReq": 1,
+    "block": 1,
+    "data": {}
+  },
+  "bronze shoulder": {
+    "lvlReq": 1,
+    "block": 1,
+    "data": {}
+  },
+  "bronze plateleg": {
+    "lvlReq": 1,
+    "block": 1,
+    "data": {}
+  },
+  "bronze boots": { 
+    "lvlReq": 1,
+    "block": 1,
+    "data": {}
+  },
+  "bronze gloves": { 
+    "lvlReq": 1,
+    "block": 1,
+    "data": {}
+  },
+  "fire cape": { 
+    "lvlReq": 1,
+    "block": 1,
+    "data": {}
+  },
+  "ring of soup": { 
+    "lvlReq": 1,
+    "block": 1,
+    "data": {}
+  },
+  "ring of bread": { 
+    "lvlReq": 1,
+    "block": 1,
+    "data": {}
+  },
+  "rune helm": {
+    "lvlReq": 30,
+    "block": 10,
+    "data": {}
+  }
+
+}

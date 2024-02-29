@@ -2,32 +2,44 @@
   "slime": {
     "maxStack": 3,
     "name": "Slime",
-    "skills": [
-      {
-        "name": "Hitpoints",
-        "value": 10
-      },
-      {
+    "skills": {
+      "hp": {
+      "name": "Hitpoints",
+      "level": 15,
+      "currentXp": 1.0,
+      "xpToNextLevel": 100.0
+    },
+      "attack": {
         "name": "Attack",
-        "value": 1
+        "level": 1,
+        "currentXp": 1.0,
+        "xpToNextLevel": 100.0
       },
-      {
+      "strength": {
         "name": "Strength",
-        "value": 1
+        "level": 1,
+        "currentXp": 1.0,
+        "xpToNextLevel": 100.0
       },
-      {
+      "defence": {
         "name": "Defence",
-        "value": 1
+        "level": 1,
+        "currentXp": 1.0,
+        "xpToNextLevel": 100.0
       },
-      {
+      "magic": {
         "name": "Magic",
-        "value": 1
+        "level": 1,
+        "currentXp": 1.0,
+        "xpToNextLevel": 100.0
       },
-      {
+      "ranged": {
         "name": "Ranged",
-        "value": 1
+        "level": 1,
+        "currentXp": 1.0,
+        "xpToNextLevel": 100.0
       }
-    ],
+    },
     "dropTable": {
       "dropTable": [
         {
@@ -41,34 +53,46 @@
     "tags": []
   },
   "goblin": {
-    "maxStack": 1,
+    "maxStack": 10,
     "name": "Goblin",
-    "skills": [
-      {
-        "name": "Hitpoints",
-        "value": 10
-      },
-      {
+    "skills": {
+      "hp": {
+      "name": "Hitpoints",
+      "level": 10,
+      "currentXp": 1.0,
+      "xpToNextLevel": 100.0
+    },
+      "attack": {
         "name": "Attack",
-        "value": 1
+        "level": 1,
+        "currentXp": 1.0,
+        "xpToNextLevel": 100.0
       },
-      {
+      "strength": {
         "name": "Strength",
-        "value": 1
+        "level": 1,
+        "currentXp": 1.0,
+        "xpToNextLevel": 100.0
       },
-      {
+      "defence": {
         "name": "Defence",
-        "value": 2
+        "level": 1,
+        "currentXp": 1.0,
+        "xpToNextLevel": 100.0
       },
-      {
+      "magic": {
         "name": "Magic",
-        "value": 1
+        "level": 1,
+        "currentXp": 1.0,
+        "xpToNextLevel": 100.0
       },
-      {
+      "ranged": {
         "name": "Ranged",
-        "value": 1
+        "level": 1,
+        "currentXp": 1.0,
+        "xpToNextLevel": 100.0
       }
-    ],
+    },
     "dropTable": {
       "dropTable": [
         {
@@ -102,32 +126,44 @@
   "cow": {
     "maxStack": 10,
     "name": "Cow",
-    "skills": [
-      {
-        "name": "Hitpoints",
-        "value": 5
-      },
-      {
+    "skills": {
+      "hp": {
+      "name": "Hitpoints",
+      "level": 10,
+      "currentXp": 1.0,
+      "xpToNextLevel": 100.0
+    },
+      "attack": {
         "name": "Attack",
-        "value": 1
+        "level": 1,
+        "currentXp": 1.0,
+        "xpToNextLevel": 100.0
       },
-      {
+      "strength": {
         "name": "Strength",
-        "value": 1
+        "level": 1,
+        "currentXp": 1.0,
+        "xpToNextLevel": 100.0
       },
-      {
+      "defence": {
         "name": "Defence",
-        "value": 1
+        "level": 1,
+        "currentXp": 1.0,
+        "xpToNextLevel": 100.0
       },
-      {
+      "magic": {
         "name": "Magic",
-        "value": 1
+        "level": 1,
+        "currentXp": 1.0,
+        "xpToNextLevel": 100.0
       },
-      {
+      "ranged": {
         "name": "Ranged",
-        "value": 1
+        "level": 1,
+        "currentXp": 1.0,
+        "xpToNextLevel": 100.0
       }
-    ],
+    },
     "dropTable": {
       "dropTable": [
         {

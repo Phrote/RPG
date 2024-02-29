@@ -35,7 +35,7 @@ public class Utils {
         for(InputHandler handler : inputHandlers) {
             str = handler.isHandleInput(input, info);
             if(!str.isEmpty()) {
-                handler.handleInput(str, info);
+                handler.handleInput(input, str);
                 return;
             }
         }
@@ -60,6 +60,8 @@ public class Utils {
     public static String getBestPrefix(String[] prefixes, String text) {
         String longestPrefix = null;
         for(String prefix : prefixes) {
+//            System.out.println(prefix);
+//            System.out.println(text.startsWith(prefix));
             if(text.startsWith(prefix)) {
                 if(longestPrefix == null || prefix.length() > longestPrefix.length()) {
                     longestPrefix = prefix;
