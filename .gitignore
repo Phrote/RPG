@@ -28,3 +28,4 @@ RPG/.idea/
 *.xml
 *.iml
 Player.json
+/target/*

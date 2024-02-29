@@ -6,6 +6,7 @@ import classes.npc.NPC;
 import utils.PairList;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 
 public class VillagerInfo extends NPC {
@@ -14,7 +15,7 @@ public class VillagerInfo extends NPC {
     public PairList chatList;
 
 
-    public VillagerInfo(String name, ArrayList<Stat> stats, DropTable droptable, String description, PairList chatList) {
+    public VillagerInfo(String name, HashMap<String, Integer> stats, DropTable droptable, String description, PairList chatList) {
         super();
         this.name = name;
         this.skills = stats;

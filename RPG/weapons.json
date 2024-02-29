@@ -3,25 +3,25 @@
     "lvlReq": 1,
     "attackSpeed": 3.0,
     "dmg": 1,
-    "type": "ranged"
+    "type": "Ranged"
   },
   "bow of god": {
     "maxStack": 1,
     "lvlReq": 10,
     "attackSpeed": 2.0,
     "dmg": 100,
-    "type": "ranged"
+    "type": "Ranged"
   },
   "bronze sword": {
     "lvlReq": 1,
     "attackSpeed": 2.5,
     "dmg": 2,
-    "type": "melee"
+    "type": "Attack"
   },
   "bronze arrow": {
     "lvlReq": 1,
     "attackSpeed": 2.5,
     "dmg": 2,
-    "type": "ranged"
+    "type": "Ranged"
   }
 }

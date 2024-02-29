@@ -10,32 +10,14 @@
       ]
     },
     "name": "Thomas the First",
-    "skills": [
-      {
-        "name": "Hitpoints",
-        "value": 1
-      },
-      {
-        "name": "Attack",
-        "value": 1
-      },
-      {
-        "name": "Strength",
-        "value": 1
-      },
-      {
-        "name": "Defence",
-        "value": 1
-      },
-      {
-        "name": "Magic",
-        "value": 1
-      },
-      {
-        "name": "Ranged",
-        "value": 1
-      }
-    ],
+    "skills": {
+      "Hitpoints": 88,
+      "Attack": 90,
+      "Strength": 90,
+      "Defence": 90,
+      "Magic": 90,
+      "Ranged": 90,
+    },
     "dropTable": {
       "dropTable": [
         {
