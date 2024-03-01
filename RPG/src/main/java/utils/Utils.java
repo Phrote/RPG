@@ -2,6 +2,7 @@ package utils;
 
 import classes.Stat;
 import interfaces.InputHandler;
+import main.GUI;
 import main.Game;
 
 import java.util.ArrayList;
@@ -61,20 +62,48 @@ public class Utils {
         }
     }
 
+    public static String autoCompleteInput(String input) {
+        Pair<String, Integer> best = null;
+        for(InputHandler handler : inputHandlers) {
+            Pair<String, Integer> ret = handler.completeCommand(input);
+            if(ret == null || ret.key == null)
+                continue;
+
+            if(best == null || ret.value < best.value) {
+                best = ret;
+            }
+        }
+
+        if(best != null) {
+            return best.key;
+        }
+        return null;
+    }
+
+    public static void listCommands() {
+        for(InputHandler handler : inputHandlers) {
+            for (String v : handler.getCommands()) {
+                Game.gui.appendToOutputArea(v);
+            }
+        }
+    }
+
     public static boolean hammingClose(String a, String b) {
         return hammingClose(a,b,1);
     }
 
     public static boolean hammingClose(String a, String b, int max) {
+        return hammingDist(a,b) <= max;
+    }
+
+    public static int hammingDist(String a, String b) {
         int dist = Math.abs(a.length()-b.length());
-        if(dist > max)
-            return false;
         for(int i = 0;i<Math.min(a.length(),b.length());i++) {
             if(a.charAt(i) != b.charAt(i)) {
                 dist++;
             }
         }
-        return dist <= max;
+        return dist;
     }
 
     public static boolean hammingPrefix(String text, String prefix, int hamming) {

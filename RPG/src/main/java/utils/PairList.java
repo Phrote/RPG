@@ -2,30 +2,30 @@ package utils;
 
 import java.util.ArrayList;
 
-public class PairList {
-    private ArrayList<Pair> list;
+public class PairList<K,V> {
+    private ArrayList<Pair<K,V>> list;
 
     public PairList() {
         list = new ArrayList<>();
     }
 
-    public void add(String key, String value) {
-        list.add(new Pair(key, value));
+    public void add(K key, V value) {
+        list.add(new Pair<K,V>(key, value));
     }
 
-    public String getValue(String key) {
-        for(Pair p : list) {
-            if(p.getKey().equals(key)) {
-                return p.getValue();
+    public V getValue(String key) {
+        for(Pair<K,V> p : list) {
+            if(p.key.equals(key)) {
+                return p.value;
             }
         }
         return null;
     }
 
-    public String getKey(String value) {
-        for(Pair p : list) {
-            if(p.getValue().equals(value)) {
-                return p.getKey();
+    public K getKey(String value) {
+        for(Pair<K,V> p : list) {
+            if(p.value.equals(value)) {
+                return p.key;
             }
         }
         return null;

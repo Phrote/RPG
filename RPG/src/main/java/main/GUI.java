@@ -131,16 +131,25 @@ public class GUI {
         gbc.gridy = 2;
         frame.add(this.tabbedPane, gbc);
         this.inputField.setSize(200,200);
+        this.inputField.setFocusTraversalKeysEnabled(false);
 
         this.inputField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                super.keyPressed(e);
+//                super.keyPressed(e);
                 if(e.getKeyCode() == KeyEvent.VK_ENTER) {
                     handleInput();
                 }
+
+                if(e.getKeyCode() == KeyEvent.VK_TAB) {
+                    String completed = Utils.autoCompleteInput(GUI.this.inputField.getText());
+                    if(completed != null) {
+                        GUI.this.inputField.setText(completed);
+                    }
+                }
             }
         });
+
 
         this.save.addActionListener(new ActionListener() {
             @Override

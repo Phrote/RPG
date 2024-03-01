@@ -1,6 +1,7 @@
 package main;
 
 import interfaces.InputHandler;
+import utils.Pair;
 import utils.Utils;
 
 import java.util.Timer;
@@ -53,6 +54,22 @@ public class AutoSaver implements InputHandler {
                 break;
         }
 
+    }
+
+    @Override
+    public String[] getCommands() {
+        return new String[]{"autosave on/off", "autosave interval <minutes>"};
+    }
+
+    @Override
+    public Pair<String, Integer> completeCommand(String input) {
+        String[] autoCompletes = {"autosave"};
+        for (String v : autoCompletes) {
+            if(v.startsWith(input)) {
+                return new Pair<>(v, Utils.hammingDist(v, input));
+            }
+        }
+        return null;
     }
 
     public void activate() {

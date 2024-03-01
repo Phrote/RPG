@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import com.google.gson.Gson;
+import utils.Pair;
 import utils.Utils;
 
 /**
@@ -21,14 +22,28 @@ import utils.Utils;
  */
 public class Commands implements InputHandler {
 
-    public ArrayList<String> commands = new ArrayList<>(
-            Arrays.asList("new game", "load game", "save", "exit", "quit"));
+    public String[] commands = {"new game", "load game", "save", "exit", "quit", "list commands"};
 
     @Override
     public Object isHandleInput(String input, String info) {
         for(String s : this.commands) {
             if(Utils.hammingClose(s, input)) {
                 return s;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public String[] getCommands() {
+        return commands;
+    }
+
+    @Override
+    public Pair<String, Integer> completeCommand(String input) {
+        for (String v : commands) {
+            if(v.startsWith(input)) {
+                return new Pair<>(v, Utils.hammingDist(v, input));
             }
         }
         return null;
@@ -50,6 +65,8 @@ public class Commands implements InputHandler {
             case "exit":
             case "quit":
                 System.exit(0);
+            case "list commands":
+                Utils.listCommands();
         }
     }
 
