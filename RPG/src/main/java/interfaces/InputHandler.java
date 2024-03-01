@@ -1,6 +1,6 @@
 package interfaces;
 
 public interface InputHandler {
-    public String isHandleInput(String input, String info);
-    public void handleInput(String answer, String info);
+    public Object isHandleInput(String input, String info);
+    public void handleInput(String input, String info, Object data);
 }

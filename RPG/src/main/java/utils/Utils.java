@@ -19,8 +19,7 @@ public class Utils {
     public static final HashMap<String, Stat> skills = new HashMap<>();
     public static int xpLevels[];
 
-    public static ArrayList<InputHandler> inputHandlers = new ArrayList<>(
-            Arrays.asList(Game.commands));
+    public static ArrayList<InputHandler> inputHandlers = new ArrayList<>();
 
     static {
         fillSkills();
@@ -53,11 +52,10 @@ public class Utils {
     }
 
     public static void findInputHandler(String input, String info) {
-        String str = "";
         for(InputHandler handler : inputHandlers) {
-            str = handler.isHandleInput(input, info);
-            if(!str.isEmpty()) {
-                handler.handleInput(input, str);
+            Object obj = handler.isHandleInput(input, info);
+            if(obj != null) {
+                handler.handleInput(input, info, obj);
                 return;
             }
         }
@@ -79,12 +77,26 @@ public class Utils {
         return dist <= max;
     }
 
+    public static boolean hammingPrefix(String text, String prefix, int hamming) {
+        int dist = Math.max(prefix.length() - text.length(), 0);
+        if(dist > hamming)
+            return false;
+        for(int i = 0;i<Math.min(text.length(),prefix.length());i++) {
+            if(text.charAt(i) != prefix.charAt(i)) {
+                dist++;
+            }
+        }
+        return dist <= hamming;
+    }
+
     public static String getBestPrefix(String[] prefixes, String text) {
+        return getBestPrefix(prefixes, text, 0);
+    }
+
+    public static String getBestPrefix(String[] prefixes, String text, int hamming) {
         String longestPrefix = null;
         for(String prefix : prefixes) {
-//            System.out.println(prefix);
-//            System.out.println(text.startsWith(prefix));
-            if(text.startsWith(prefix)) {
+            if(hammingPrefix(text, prefix, hamming)) {
                 if(longestPrefix == null || prefix.length() > longestPrefix.length()) {
                     longestPrefix = prefix;
                 }
@@ -103,5 +115,59 @@ public class Utils {
     public static int getRandomInRange(int min, int max)
     {
         return rand.nextInt(max-min) + min;
+    }
+
+    public static class CommandProcessor {
+        public String getCommand() {
+            return command;
+        }
+
+        String command;
+
+        public CommandProcessor(String command) {
+            this.command = command.trim();
+        }
+
+        public String popBestPrefix(String[] prefixes, int hamming) {
+            String best = getBestPrefix(prefixes, command, hamming);
+            if(best == null) {
+                return null;
+            }
+            this.command = this.command.substring(best.length());
+            int nextSpace = this.command.indexOf(" ");
+            if(nextSpace != -1 && nextSpace >= 0 && nextSpace <= hamming) {
+                this.command = this.command.substring(nextSpace+1);
+            }
+            return best;
+        }
+
+        public String popRest() {
+            String rest = this.command;
+            this.command = "";
+            return rest;
+        }
+
+        public String[] pop(int n) {
+            String t[] = this.command.split(" ");
+            if(t.length >= n) {
+                String[] ret = Arrays.copyOfRange(t, 0, n);
+                this.command = this.command.substring(String.join(" ", ret).length());
+                this.command = this.command.trim();
+                return ret;
+            }
+            return null;
+        }
+
+        public String pop() {
+            String[] t = pop(1);
+            if(t.length == 1 && t[0].length() > 0) {
+                return t[0];
+            }
+            return null;
+        }
+
+        public String get() {
+            return command;
+        }
     }
 }

@@ -42,12 +42,12 @@ public class Player implements InputHandler {
     }
 
     @Override
-    public String isHandleInput(String input, String info) {
+    public Object isHandleInput(String input, String info) {
         String prefix = Utils.getBestPrefix(this.commands, input);
         if(prefix != null) {
             for(String s : this.commands) {
                 if(Utils.hammingClose(s, prefix)) {
-                    return input;
+                    return prefix;
                 }
             }
         }
@@ -56,31 +56,31 @@ public class Player implements InputHandler {
                 return s;
             }
         }
-        return "";
+        return null;
     }
 
     @Override
-    public void handleInput(String input, String info) {
-        String prefix = Utils.getBestPrefix(this.commands, input);
+    public void handleInput(String input, String info, Object obj) {
+        String command = (String)obj;
         String item = "";
-        if(prefix != null) {
+        if(command != null) {
             try {
-                switch(prefix) {
+                switch(command) {
                     case "show self":
                         Game.gui.appendToOutputArea(Game.player.toString());
                         break;
                     case "wear":
                     case "equip":
-                        item = input.replace(prefix + " ", "");
+                        item = input.replace(command + " ", "");
                         Game.player.gear.equip(item);
                         break;
                     case "unequip":
                     case "remove":
-                        item = input.replace(prefix + " ", "");
+                        item = input.replace(command + " ", "");
                         Game.player.gear.unEquip(item);
                         break;
                     case "set skill":
-                        input = input.replace(prefix + " ", "");
+                        input = input.replace(command + " ", "");
                         String words[] = input.split(" ");
                         Stat stat = Game.player.stats.get(words[0]);
                         stat.addXp(Integer.parseInt(words[1]));

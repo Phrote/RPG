@@ -18,10 +18,12 @@ public class Game {
     public static final Commands commands = new Commands();
 
     public static void main(String[] args) {
+        setupInputHandlers();
         gui = new GUI();
         Utils.showMainMenu();
         Commands.loadGame();
         System.out.println(MobDatabase.getMobInfo("cow"));
+
 
         try {
             Game.player.gear.equip("Bronze helm");
@@ -40,6 +42,12 @@ public class Game {
 
 
     }
+
+    public static void setupInputHandlers() {
+        Utils.inputHandlers.add(new AutoSaver());
+        Utils.inputHandlers.add(commands);
+    }
+
 
 
 }

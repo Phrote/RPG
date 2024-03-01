@@ -4,6 +4,7 @@ import classes.Player;
 import com.google.gson.GsonBuilder;
 import interfaces.InputHandler;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -24,17 +25,18 @@ public class Commands implements InputHandler {
             Arrays.asList("new game", "load game", "save", "exit", "quit"));
 
     @Override
-    public String isHandleInput(String input, String info) {
+    public Object isHandleInput(String input, String info) {
         for(String s : this.commands) {
             if(Utils.hammingClose(s, input)) {
                 return s;
             }
         }
-        return "";
+        return null;
     }
 
     @Override
-    public void handleInput(String answer, String info) {
+    public void handleInput(String input, String info, Object obj) {
+        String answer = (String)obj;
         switch(answer) {
             case "new game":
                 newGame();
@@ -54,7 +56,7 @@ public class Commands implements InputHandler {
     public static void saveGame() {
         Game.gui.appendToOutputArea("\n\nSaving...");
         try {
-            FileWriter myWriter = new FileWriter("player.json");
+            FileWriter myWriter = new FileWriter(new File("save","player.json"));
             myWriter.write(new GsonBuilder().setPrettyPrinting().create().toJson(Game.player, Player.class));
 
             myWriter.close();
@@ -70,7 +72,7 @@ public class Commands implements InputHandler {
 
     public static void loadGame() {
         try {
-            Game.player = new Gson().fromJson(Files.readString(Paths.get("player.json")), Player.class);
+            Game.player = new Gson().fromJson(Files.readString(Paths.get("save/player.json")), Player.class);
             Utils.inputHandlers.add(Game.player);
             Game.gui.clearOutputArea();
             Game.gui.appendToOutputArea("Loading was successful!");
@@ -87,7 +89,9 @@ public class Commands implements InputHandler {
     public static void newGame() {
         String question = "Enter Character Name:";
         Game.player = new Player();
+        System.out.println(Game.player);
         Utils.inputHandlers.add(Game.player);
+        System.out.println(Game.player);
         Utils.askQuestion(question, Game.player, "player_name");
     }
 
