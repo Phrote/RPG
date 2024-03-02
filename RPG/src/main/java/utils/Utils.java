@@ -2,6 +2,7 @@ package utils;
 
 import classes.Stat;
 import interfaces.InputHandler;
+import main.GUI;
 import main.Game;
 
 import java.util.ArrayList;
@@ -19,8 +20,7 @@ public class Utils {
     public static final HashMap<String, Stat> skills = new HashMap<>();
     public static int xpLevels[];
 
-    public static ArrayList<InputHandler> inputHandlers = new ArrayList<>(
-            Arrays.asList(Game.commands));
+    public static ArrayList<InputHandler> inputHandlers = new ArrayList<>();
 
     static {
         fillSkills();
@@ -53,12 +53,37 @@ public class Utils {
     }
 
     public static void findInputHandler(String input, String info) {
-        String str = "";
         for(InputHandler handler : inputHandlers) {
-            str = handler.isHandleInput(input, info);
-            if(!str.isEmpty()) {
-                handler.handleInput(input, str);
+            Object obj = handler.isHandleInput(input, info);
+            if(obj != null) {
+                handler.handleInput(input, info, obj);
                 return;
+            }
+        }
+    }
+
+    public static String autoCompleteInput(String input) {
+        Pair<String, Integer> best = null;
+        for(InputHandler handler : inputHandlers) {
+            Pair<String, Integer> ret = handler.completeCommand(input);
+            if(ret == null || ret.key == null)
+                continue;
+
+            if(best == null || ret.value < best.value) {
+                best = ret;
+            }
+        }
+
+        if(best != null) {
+            return best.key;
+        }
+        return null;
+    }
+
+    public static void listCommands() {
+        for(InputHandler handler : inputHandlers) {
+            for (String v : handler.getCommands()) {
+                Game.gui.appendToOutputArea(v);
             }
         }
     }
@@ -68,23 +93,39 @@ public class Utils {
     }
 
     public static boolean hammingClose(String a, String b, int max) {
+        return hammingDist(a,b) <= max;
+    }
+
+    public static int hammingDist(String a, String b) {
         int dist = Math.abs(a.length()-b.length());
-        if(dist > max)
-            return false;
         for(int i = 0;i<Math.min(a.length(),b.length());i++) {
             if(a.charAt(i) != b.charAt(i)) {
                 dist++;
             }
         }
-        return dist <= max;
+        return dist;
+    }
+
+    public static boolean hammingPrefix(String text, String prefix, int hamming) {
+        int dist = Math.max(prefix.length() - text.length(), 0);
+        if(dist > hamming)
+            return false;
+        for(int i = 0;i<Math.min(text.length(),prefix.length());i++) {
+            if(text.charAt(i) != prefix.charAt(i)) {
+                dist++;
+            }
+        }
+        return dist <= hamming;
     }
 
     public static String getBestPrefix(String[] prefixes, String text) {
+        return getBestPrefix(prefixes, text, 0);
+    }
+
+    public static String getBestPrefix(String[] prefixes, String text, int hamming) {
         String longestPrefix = null;
         for(String prefix : prefixes) {
-//            System.out.println(prefix);
-//            System.out.println(text.startsWith(prefix));
-            if(text.startsWith(prefix)) {
+            if(hammingPrefix(text, prefix, hamming)) {
                 if(longestPrefix == null || prefix.length() > longestPrefix.length()) {
                     longestPrefix = prefix;
                 }

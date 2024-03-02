@@ -29,3 +29,4 @@ RPG/.idea/
 *.iml
 Player.json
 /target/*
+/save
