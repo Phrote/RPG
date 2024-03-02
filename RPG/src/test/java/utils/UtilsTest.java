@@ -9,7 +9,7 @@ class UtilsTest {
     @Test
     void testCommandProcessor() {
         String command = "deposita 1 Bow of chaos";
-        Utils.CommandProcessor cmdProc = new Utils.CommandProcessor(command);
+        CommandProcessor cmdProc = new CommandProcessor(command);
         String best = cmdProc.popBestPrefix(new String[]{"deposit"}, 1);
         Assertions.assertEquals("deposit" , best);
         Assertions.assertEquals("1", cmdProc.pop());

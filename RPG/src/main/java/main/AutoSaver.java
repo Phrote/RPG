@@ -1,6 +1,8 @@
 package main;
 
 import interfaces.InputHandler;
+import utils.CommandProcessor;
+import utils.CommandTree;
 import utils.Pair;
 import utils.Utils;
 
@@ -29,7 +31,7 @@ public class AutoSaver implements InputHandler {
 
     @Override
     public void handleInput(String input, String info, Object obj) {
-        Utils.CommandProcessor cmdProc = new Utils.CommandProcessor(input);
+        CommandProcessor cmdProc = new CommandProcessor(input);
         cmdProc.popBestPrefix(new String[]{"autosave", "autosaving"},1);
         String cmd = cmdProc.popBestPrefix(new String[]{"on", "off", "interval"}, 1);
         if(cmd == null) {
@@ -63,13 +65,10 @@ public class AutoSaver implements InputHandler {
 
     @Override
     public Pair<String, Integer> completeCommand(String input) {
-        String[] autoCompletes = {"autosave"};
-        for (String v : autoCompletes) {
-            if(v.startsWith(input)) {
-                return new Pair<>(v, Utils.hammingDist(v, input));
-            }
-        }
-        return null;
+        CommandTree cmdTree = new CommandTree();
+        cmdTree.branch("autosave").leafs(new String[]{"on","off","interval"});
+        String cmd = cmdTree.complete(input);
+        return cmd == null ? null : new Pair<>(cmd,Utils.hammingDist(cmd,input));
     }
 
     public void activate() {
