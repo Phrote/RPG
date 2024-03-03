@@ -130,8 +130,6 @@ public class Player implements InputHandler {
 
         Pair<String, String> cmd = cmdTree.complete(input);
 
-        System.out.println(cmd);
-
         if(cmd == null)
             return null;
 
@@ -142,7 +140,13 @@ public class Player implements InputHandler {
         if(cmd.key == "wear" || cmd.key == "equip") {
             String item = inventory.completeItemName(cmd.value);
             if(item != null) {
-                System.out.println(cmd + ", " + item);
+                return new Pair<>(cmd.key + " " + item, 0);
+            }
+        }
+
+        if(cmd.key == "remove" || cmd.key == "unequip") {
+            String item = gear.completeGearName(cmd.value);
+            if(item != null) {
                 return new Pair<>(cmd.key + " " + item, 0);
             }
         }
