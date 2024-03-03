@@ -3,6 +3,7 @@ package item;
 import main.Game;
 import utils.Utils;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -137,6 +138,21 @@ public class StorageComponent {
             }
         }
         return null;
+    }
+
+    public String completeItemName(String text) {
+        String bestPrefix = null;
+        for(Item item : items) {
+            String name = ItemDatabase.getItemInfo(item.id).name;
+            if(name.startsWith(text)) {
+                if (bestPrefix == null) {
+                    bestPrefix = name;
+                } else {
+                    bestPrefix = Utils.commonPrefix(bestPrefix, name);
+                }
+            }
+        }
+        return bestPrefix;
     }
 
     public int count(String id) {

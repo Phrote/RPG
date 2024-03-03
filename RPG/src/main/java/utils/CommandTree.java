@@ -33,34 +33,33 @@ public class CommandTree {
         }
         return null;
     }
-    public String complete(String input) {
+    public Pair<String,String> complete(String input) {
         String[] t = input.split(" ");
         CommandTree next;
         int sep = input.indexOf(" ");
         String nextWord = sep == -1 ? input : input.substring(0, sep);
         String remInput = sep == -1 ? null : input.substring(sep+1);
         String cmd = getBest(nextWord);
-        System.out.println(input + "(" + nextWord + ") --> " + cmd + ", rem: " + remInput);
         if(cmd == null) {
             return null;
         }
 
-        if(remInput == null || remInput == "") {
-            return cmd;
+        if(remInput == null || remInput.isEmpty()) {
+            return new Pair(cmd, null);
         }
 
         CommandTree nextTree = tree.get(cmd);
 
         if(nextTree == null) {
-            return cmd;
+            return new Pair(cmd, remInput);
         }
 
-        String cmdNext = nextTree.complete(remInput);
+        Pair<String, String> cmdNext = nextTree.complete(remInput);
 
         if(cmdNext == null) {
-            return cmd;
+            return new Pair(cmd, remInput);
         }
 
-        return cmd + " " + cmdNext;
+        return new Pair<>(cmd + " " + cmdNext.key, cmdNext.value);
     }
 }

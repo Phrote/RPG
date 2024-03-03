@@ -67,8 +67,11 @@ public class AutoSaver implements InputHandler {
     public Pair<String, Integer> completeCommand(String input) {
         CommandTree cmdTree = new CommandTree();
         cmdTree.branch("autosave").leafs(new String[]{"on","off","interval"});
-        String cmd = cmdTree.complete(input);
-        return cmd == null ? null : new Pair<>(cmd,Utils.hammingDist(cmd,input));
+        Pair<String, String> cmd = cmdTree.complete(input);
+        if(cmd == null || cmd.value != null) {
+            return null;
+        }
+        return new Pair<>(cmd.key,Utils.hammingDist(cmd.key,input));
     }
 
     public void activate() {

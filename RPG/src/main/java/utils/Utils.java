@@ -133,6 +133,18 @@ public class Utils {
         }
         return longestPrefix;
     }
+
+    public static String commonPrefix(String a, String b) {
+        String common = "";
+        for(int i = 0; i < Math.min(a.length(), b.length()); i++) {
+            if(a.charAt(i) == b.charAt(i)) {
+                common += a.charAt(i);
+            } else {
+                return common;
+            }
+        }
+        return common;
+    }
     public static void showMainMenu() {
         askQuestion(Text.mainMenuText, Game.commands);
     }
