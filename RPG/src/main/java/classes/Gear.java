@@ -7,6 +7,7 @@ import Exceptions.NoItemException;
 import item.*;
 import main.Game;
 import utils.Pair;
+import utils.Utils;
 
 
 import java.util.LinkedHashMap;
@@ -147,5 +148,32 @@ public class Gear {
         sb.append("Ammunition: " + (this.ammunition.key == null ? "" : this.ammunition.value + " " + ItemDatabase.getItemInfo(this.ammunition.key).name));
 
         return sb.toString();
+    }
+
+    public String completeGearName(String text) {
+        String bestPrefix = null;
+        for(var gear : gearList.entrySet()) {
+            if(gear.getValue() == null || gear.getValue().isEmpty())
+                continue;
+            String name = ItemDatabase.getItemInfo(gear.getValue()).name;
+            if(name.startsWith(text)) {
+                if (bestPrefix == null) {
+                    bestPrefix = name;
+                } else {
+                    bestPrefix = Utils.commonPrefix(bestPrefix, name);
+                }
+            }
+        }
+        if(ammunition.key != null) {
+            String name = ItemDatabase.getItemInfo(ammunition.key).name;
+            if(name.startsWith(text)) {
+                if (bestPrefix == null) {
+                    bestPrefix = name;
+                } else {
+                    bestPrefix = Utils.commonPrefix(bestPrefix, name);
+                }
+            }
+        }
+        return bestPrefix;
     }
 }

@@ -24,6 +24,9 @@ public class Game {
         Commands.loadGame();
         System.out.println(MobDatabase.getMobInfo("cow"));
 
+//        Game.player.inventory.place(new Item("bronze helm",1));
+//        Game.player.inventory.place(new Item("bronze platebody",1));
+//        Game.player.inventory.place(new Item("bronze sword",1));
 
         try {
             Game.player.gear.equip("Bronze helm");

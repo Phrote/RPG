@@ -10,7 +10,10 @@ import java.util.LinkedHashMap;
 import java.util.regex.Pattern;
 
 import interfaces.InputHandler;
+import item.Item;
 import main.Game;
+import utils.CommandTree;
+import utils.Pair;
 import utils.Utils;
 import item.StorageComponent;
 
@@ -106,5 +109,48 @@ public class Player implements InputHandler {
 
             }
         }
+    }
+
+    @Override
+    public String[] getCommands() {
+        return new String[] {
+                "show self",
+                "wear/equip <item>",
+                "remove/unequip <item>"
+        };
+
+    }
+
+    @Override
+    public Pair<String, Integer> completeCommand(String input) {
+        CommandTree cmdTree = new CommandTree();
+        cmdTree.branch("show").leaf("self");
+        cmdTree.leafs(new String[]{"wear", "equip"});
+        cmdTree.leafs(new String[]{"remove", "unequip"});
+
+        Pair<String, String> cmd = cmdTree.complete(input);
+
+        if(cmd == null)
+            return null;
+
+        if(cmd.value == null) {
+            return new Pair<>(cmd.key, Utils.hammingDist(cmd.key, input));
+        }
+
+        if(cmd.key == "wear" || cmd.key == "equip") {
+            String item = inventory.completeItemName(cmd.value);
+            if(item != null) {
+                return new Pair<>(cmd.key + " " + item, 0);
+            }
+        }
+
+        if(cmd.key == "remove" || cmd.key == "unequip") {
+            String item = gear.completeGearName(cmd.value);
+            if(item != null) {
+                return new Pair<>(cmd.key + " " + item, 0);
+            }
+        }
+
+        return new Pair<>(input,0);
     }
 }
