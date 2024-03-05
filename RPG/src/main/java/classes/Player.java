@@ -4,14 +4,15 @@
  */
 package classes;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.regex.Pattern;
 
 import interfaces.InputHandler;
 import item.Item;
+import item.ItemDatabase;
 import main.Game;
+import utils.CommandProcessor;
 import utils.CommandTree;
 import utils.Pair;
 import utils.Utils;
@@ -23,10 +24,11 @@ public class Player implements InputHandler {
     public String name;
     public LinkedHashMap<String, Stat> stats = new LinkedHashMap<>();
     public Gear gear = new Gear();
+    public HashMap<String, Gear> gearSets = new HashMap<>();
     public StorageComponent inventory = new StorageComponent(10);
     private static final Pattern namePattern = Pattern.compile("[a-zA-Z0-9]+", Pattern.CASE_INSENSITIVE);
 
-    public static String[] commands = {"show self", "wear", "equip", "unequip", "remove", "set skill"};
+    public static String[] commands = {"show self", "wear", "equip", "unequip", "remove", "set skill", "save gear as"};
     public static String[] infos = {"player_name"};
 
     public Player() {
@@ -66,6 +68,7 @@ public class Player implements InputHandler {
     public void handleInput(String input, String info, Object obj) {
         String command = (String)obj;
         String item = "";
+
         if(command != null) {
             try {
                 switch(command) {
@@ -75,20 +78,35 @@ public class Player implements InputHandler {
                     case "wear":
                     case "equip":
                         item = input.replace(command + " ", "");
-                        Game.player.gear.equip(item);
+                        if(item.startsWith("gearset")) {
+                            String gearSetName = item.substring(item.indexOf(" ")+1);
+                            Gear gearSet = gearSets.get(gearSetName);
+                            if (gearSet != null) {
+                                gearSet.wearGearSet(true);
+                            }
+                        } else {
+                            gear.equip(item);
+                        }
                         break;
                     case "unequip":
                     case "remove":
                         item = input.replace(command + " ", "");
-                        Game.player.gear.unEquip(item);
+                        gear.unEquip(item);
                         break;
                     case "set skill":
                         input = input.replace(command + " ", "");
                         String words[] = input.split(" ");
-                        Stat stat = Game.player.stats.get(words[0]);
+                        Stat stat = stats.get(words[0]);
                         stat.addXp(Integer.parseInt(words[1]));
-                        Game.player.stats.put(words[0], stat);
-                        System.out.println(Game.player.toString());
+                        stats.put(words[0], stat);
+                        System.out.println(this);
+                        break;
+                    case "save gear as":
+                        String gearSetName = input.replace(command, "").trim();
+                        if(!gearSetName.isEmpty()) {
+                            gearSets.put(gearSetName, new Gear(gear));
+                            System.out.println(gearSets.size());
+                        }
                         break;
                 }
             } catch (Exception e) {
@@ -116,7 +134,9 @@ public class Player implements InputHandler {
         return new String[] {
                 "show self",
                 "wear/equip <item>",
-                "remove/unequip <item>"
+                "wear/equip gearset <gearset name>",
+                "remove/unequip <item>",
+                "save gear as <gearset name>"
         };
 
     }
@@ -125,8 +145,10 @@ public class Player implements InputHandler {
     public Pair<String, Integer> completeCommand(String input) {
         CommandTree cmdTree = new CommandTree();
         cmdTree.branch("show").leaf("self");
-        cmdTree.leafs(new String[]{"wear", "equip"});
+        cmdTree.branch("wear").leaf("gearset");
+        cmdTree.branch("equip").leaf("gearset");
         cmdTree.leafs(new String[]{"remove", "unequip"});
+        cmdTree.branch("save").branch("gear").branch("as");
 
         Pair<String, String> cmd = cmdTree.complete(input);
 
@@ -137,14 +159,31 @@ public class Player implements InputHandler {
             return new Pair<>(cmd.key, Utils.hammingDist(cmd.key, input));
         }
 
-        if(cmd.key == "wear" || cmd.key == "equip") {
+        if(cmd.key.equals("wear") || cmd.key.equals("equip")) {
             String item = inventory.completeItemName(cmd.value);
             if(item != null) {
                 return new Pair<>(cmd.key + " " + item, 0);
             }
         }
 
-        if(cmd.key == "remove" || cmd.key == "unequip") {
+        if(cmd.key.equals("wear gearset") || cmd.key.equals("equip gearset")) {
+            String bestPrefix = null;
+            for (var gearset : gearSets.entrySet()) {
+                if(gearset.getKey().startsWith(cmd.value)) {
+                    if (bestPrefix == null) {
+                        bestPrefix = gearset.getKey();
+                    } else {
+                        bestPrefix = Utils.commonPrefix(bestPrefix, gearset.getKey());
+                    }
+                }
+            }
+            if(bestPrefix == null) {
+                return null;
+            }
+            return new Pair<>(cmd.key + " " + bestPrefix, 0);
+        }
+
+        if(cmd.key.equals("remove") || cmd.key.equals("unequip")) {
             String item = gear.completeGearName(cmd.value);
             if(item != null) {
                 return new Pair<>(cmd.key + " " + item, 0);

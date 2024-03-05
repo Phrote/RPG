@@ -11,8 +11,4 @@ public class Villager {
     public Villager(String id) {
         this.id = id;
     }
-
-    public List<String> getString() {
-        return List.of(ItemDatabase.getItemInfo(id).name);
-    }
 }

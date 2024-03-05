@@ -1,24 +1,24 @@
 {
-  "bow": {
+  "Bow": {
     "lvlReq": 1,
     "attackSpeed": 3.0,
     "dmg": 1,
     "type": "Ranged"
   },
-  "bow of god": {
+  "Bow of god": {
     "maxStack": 1,
     "lvlReq": 10,
     "attackSpeed": 2.0,
     "dmg": 100,
     "type": "Ranged"
   },
-  "bronze sword": {
+  "Bronze sword": {
     "lvlReq": 1,
     "attackSpeed": 2.5,
     "dmg": 2,
     "type": "Attack"
   },
-  "bronze arrow": {
+  "Bronze arrow": {
     "lvlReq": 1,
     "attackSpeed": 2.5,
     "dmg": 2,

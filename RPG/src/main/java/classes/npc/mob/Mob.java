@@ -12,9 +12,4 @@ public class Mob {
         this.id = id;
         this.qty = qty;
     }
-
-    public List<String> getString() {
-        return List.of(ItemDatabase.getItemInfo(id).name, qty > 1 ? (String.valueOf(qty) + "x") : "");
-    }
-
 }

@@ -33,6 +33,7 @@ public class CommandTree {
         }
         return null;
     }
+
     public Pair<String,String> complete(String input) {
         String[] t = input.split(" ");
         CommandTree next;
@@ -44,11 +45,11 @@ public class CommandTree {
             return null;
         }
 
+        CommandTree nextTree = tree.get(cmd);
+
         if(remInput == null || remInput.isEmpty()) {
             return new Pair(cmd, null);
         }
-
-        CommandTree nextTree = tree.get(cmd);
 
         if(nextTree == null) {
             return new Pair(cmd, remInput);
