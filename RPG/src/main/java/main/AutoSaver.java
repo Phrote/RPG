@@ -9,20 +9,21 @@ import utils.Utils;
 import java.util.Timer;
 import java.util.TimerTask;
 
+
+class AutoSaveTimer extends TimerTask {
+
+    @Override
+    public void run() {
+        Commands.saveGame();
+    }
+}
+
 public class AutoSaver implements InputHandler {
     int interval = 5;
     Timer timer = new Timer();
 
     boolean autoSaving = false;
     AutoSaveTimer timerTask;
-
-    class AutoSaveTimer extends TimerTask {
-
-        @Override
-        public void run() {
-            Commands.saveGame();
-        }
-    }
 
     @Override
     public Object isHandleInput(String input, String info) {

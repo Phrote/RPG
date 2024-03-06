@@ -28,20 +28,20 @@ public class Game {
 //        Game.player.inventory.place(new Item("bronze platebody",1));
 //        Game.player.inventory.place(new Item("bronze sword",1));
 
-        try {
-            Game.player.gear.equip("Bronze helm");
-            Game.player.gear.equip("Bronze platebody");
-            Game.player.gear.equip("Bronze shoulder");
-            Game.player.gear.equip("Bronze plateleg");
-            Game.player.gear.equip("Bronze sword");
-            Game.player.gear.equip("Bronze boots");
-            Game.player.gear.equip("Bronze gloves");
-            Game.player.gear.equip("Fire cape");
-            Game.player.gear.equip("Ring of Soup");
-            Game.player.gear.equip("Ring of Bread");
-        } catch (Exception e) {
-            gui.appendToOutputArea(e.getLocalizedMessage());
-        }
+//        try {
+//            Game.player.gear.equip("Bronze helm");
+//            Game.player.gear.equip("Bronze platebody");
+//            Game.player.gear.equip("Bronze shoulder");
+//            Game.player.gear.equip("Bronze plateleg");
+//            Game.player.gear.equip("Bronze sword");
+//            Game.player.gear.equip("Bronze boots");
+//            Game.player.gear.equip("Bronze gloves");
+//            Game.player.gear.equip("Fire cape");
+//            Game.player.gear.equip("Ring of Soup");
+//            Game.player.gear.equip("Ring of Bread");
+//        } catch (Exception e) {
+//            gui.appendToOutputArea(e.getLocalizedMessage());
+//        }
 
 
     }

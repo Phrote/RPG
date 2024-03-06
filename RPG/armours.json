@@ -1,50 +1,50 @@
 {
-  "bronze helm": {
+  "Bronze helm": {
     "lvlReq": 1,
     "block": 1,
     "data": {}
   },
-  "bronze platebody": {
+  "Bronze platebody": {
     "lvlReq": 1,
     "block": 1,
     "data": {}
   },
-  "bronze shoulder": {
+  "Bronze shoulder": {
     "lvlReq": 1,
     "block": 1,
     "data": {}
   },
-  "bronze plateleg": {
+  "Bronze plateleg": {
     "lvlReq": 1,
     "block": 1,
     "data": {}
   },
-  "bronze boots": { 
+  "Bronze boots": {
     "lvlReq": 1,
     "block": 1,
     "data": {}
   },
-  "bronze gloves": { 
+  "Bronze gloves": {
     "lvlReq": 1,
     "block": 1,
     "data": {}
   },
-  "fire cape": { 
+  "Fire cape": {
     "lvlReq": 1,
     "block": 1,
     "data": {}
   },
-  "ring of soup": { 
+  "Ring of soup": {
     "lvlReq": 1,
     "block": 1,
     "data": {}
   },
-  "ring of bread": { 
+  "Ring of bread": {
     "lvlReq": 1,
     "block": 1,
     "data": {}
   },
-  "rune helm": {
+  "Rune helm": {
     "lvlReq": 30,
     "block": 10,
     "data": {}

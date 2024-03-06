@@ -18,10 +18,10 @@ public class StorageComponent {
 
     public Item place(Item item) {
         int remQty = item.qty;
-        int stack = ItemDatabase.getItemInfo(item.id).maxStack;
+        int stack = ItemDatabase.getItemInfo(item.name).maxStack;
 
         for(Item storedItem : items) {
-            if(storedItem.id == item.id) {
+            if(storedItem.name == item.name) {
                 int qty = Math.min(remQty,stack - storedItem.qty);
                 storedItem.qty += qty;
                 remQty -= qty;
@@ -32,11 +32,11 @@ public class StorageComponent {
 
         while(remQty > 0 && items.size() < size) {
             int qty = Math.min(remQty,stack);
-            items.add(new Item(item.id, qty));
+            items.add(new Item(item.name, qty));
             remQty -= qty;
         }
         Game.gui.updateInventoryGUI();
-        return remQty > 0 ? new Item(item.id, remQty) : null;
+        return remQty > 0 ? new Item(item.name, remQty) : null;
     }
 
     public void remove(Item item) {
@@ -45,7 +45,7 @@ public class StorageComponent {
 
         while(iter.hasPrevious()) {
             Item storedItem = iter.previous();
-            if(storedItem.id == item.id) {
+            if(storedItem.name.equals(item.name)) {
                 if(storedItem.qty > remQty) {
                     storedItem.qty -= remQty;
                     remQty = 0;
@@ -64,7 +64,7 @@ public class StorageComponent {
         if(rem == null) {
             this.remove(item);
         } else {
-            this.remove(new Item(item.id, item.qty - rem.qty));
+            this.remove(new Item(item.name, item.qty - rem.qty));
         }
         Game.gui.updateInventoryGUI();
     }
@@ -73,21 +73,21 @@ public class StorageComponent {
     public Item textToItem(String text) {
         String[] parts = separateQty(text);
         String qtyStr = parts[0];
-        String name = parts[1];
-        String id = "";
+        String nameStr = parts[1];
+        String name = "";
         int storedQty = 0;
 
         for(Item item : items) {
-            if(Utils.hammingClose(ItemDatabase.getItemInfo(item.id).name, name)) {
+            if(Utils.hammingClose(item.name, nameStr)) {
                 storedQty += item.qty;
-                id = item.id;
+                name = item.name;
             }
         }
         if(storedQty == 0) {
             return null;
         }
         int qty = textToQty(qtyStr, storedQty);
-        return qty == 0 ? null : new Item(id, qty);
+        return qty == 0 ? null : new Item(name, qty);
     }
 
     //Utility function to get potential quantity part of a text.
@@ -133,8 +133,8 @@ public class StorageComponent {
 
     public String getItemIdByName(String name) {
         for(Item item : items) {
-            if(ItemDatabase.getItemInfo(item.id).name.equals(name)) {
-                return item.id;
+            if(name.equals(name)) {
+                return item.name;
             }
         }
         return null;
@@ -143,22 +143,21 @@ public class StorageComponent {
     public String completeItemName(String text) {
         String bestPrefix = null;
         for(Item item : items) {
-            String name = ItemDatabase.getItemInfo(item.id).name;
-            if(name.startsWith(text)) {
+            if(item.name.startsWith(text)) {
                 if (bestPrefix == null) {
-                    bestPrefix = name;
+                    bestPrefix = item.name;
                 } else {
-                    bestPrefix = Utils.commonPrefix(bestPrefix, name);
+                    bestPrefix = Utils.commonPrefix(bestPrefix, item.name);
                 }
             }
         }
         return bestPrefix;
     }
 
-    public int count(String id) {
+    public int count(String name) {
         int storedQty = 0;
         for(Item item : items) {
-            if(item.id.equals(id)) {
+            if(item.name.equals(name)) {
                 storedQty += item.qty;
             }
         }

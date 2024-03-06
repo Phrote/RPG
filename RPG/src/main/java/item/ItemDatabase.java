@@ -25,7 +25,8 @@ public class ItemDatabase {
             e.printStackTrace();
         }
     }
-    public static ItemInfo getItemInfo(String id) {
-        return database.get(id);
+    public static ItemInfo getItemInfo(String name) {
+        return database.get(name);
     }
+    public static boolean isItem(String name) { return database.containsKey(name); }
 }

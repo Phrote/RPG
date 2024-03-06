@@ -1,56 +1,48 @@
 {
-  "ring of welcome": {
-    "name": "Rinf Of Welcome",
+  "Ring Of Welcome": {
     "description": "The precious item",
     "maxStack": 1,
     "tags": [],
     "data": {
     "equipment":"ring"}
   },
-  "bone": {
-    "name": "Bone",
+  "Bone": {
     "description": "",
     "maxStack": 10,
     "tags": [],
     "data": {}
   },
-  "beef": {
-    "name": "Beef",
+  "Beef": {
     "description": "",
     "maxStack": 10,
     "tags": [],
     "data": {}
   },
-  "leather": {
-    "name": "Leather",
+  "Leather": {
     "description": "",
     "maxStack": 20,
     "tags": [],
     "data": {}
   },
-  "jelly": {
-    "name": "Jelly",
+  "Jelly": {
     "description": "",
     "maxStack": 20,
     "tags": [],
     "data": {}
   },
-  "apple": {
-    "name": "Apple",
+  "Apple": {
     "description": "",
     "maxStack": 10,
     "tags": [],
     "data": {}
   },
-  "knife": {
-    "name": "Knife",
+  "Knife": {
     "description": "",
     "maxStack": 1,
     "tags": [],
     "data": {}
   },
-  "bow": {
-    "name": "Bow",
+  "Bow": {
     "description": "",
     "maxStack": 1,
     "tags": [],
@@ -58,8 +50,7 @@
       "equipment": "Weapon"
     }
   },
-  "bow of god": {
-    "name": "Bow of God",
+  "Bow of God": {
     "description": "",
     "maxStack": 1,
     "tags": [],
@@ -67,8 +58,7 @@
       "equipment": "Weapon"
     }
   },
-  "bronze sword": {
-    "name": "Bronze sword",
+  "Bronze sword": {
     "description": "",
     "maxStack": 1,
     "tags": [],
@@ -76,8 +66,7 @@
       "equipment": "Weapon"
     }
   },
-  "bronze arrow": {
-    "name": "Bronze arrow",
+  "Bronze arrow": {
     "description": "",
     "maxStack": 100,
     "tags": [],
@@ -85,8 +74,7 @@
       "equipment": "Ammunition"
     }
   },
-  "bronze helm": {
-    "name": "Bronze helm",
+  "Bronze helm": {
     "description": "",
     "maxStack": 2,
     "tags": [],
@@ -94,8 +82,7 @@
       "equipment": "Helmet"
     }
   },
-  "bronze platebody": {
-    "name": "Bronze platebody",
+  "Bronze platebody": {
     "description": "",
     "maxStack": 2,
     "tags": [],
@@ -103,8 +90,7 @@
       "equipment": "Chest"
     }
   },
-  "bronze shoulder": {
-    "name": "Bronze shoulder",
+  "Bronze shoulder": {
     "description": "",
     "maxStack": 1,
     "tags": [],
@@ -112,8 +98,7 @@
       "equipment": "Shoulder"
     }
   },
-  "bronze plateleg": {
-    "name": "Bronze plateleg",
+  "Bronze plateleg": {
     "description": "",
     "maxStack": 1,
     "tags": [],
@@ -121,8 +106,7 @@
       "equipment": "Legs"
     }
   },
-  "bronze boots": { 
-    "name": "Bronze boots",
+  "Bronze boots": {
     "description": "",
     "maxStack": 1,
     "tags": [],
@@ -130,8 +114,7 @@
       "equipment": "Feet"
     }
   },
-  "bronze gloves": { 
-    "name": "Bronze gloves",
+  "Bronze gloves": {
     "description": "",
     "maxStack": 1,
     "tags": [],
@@ -139,8 +122,7 @@
       "equipment": "Gloves"
     }
   },
-  "fire cape": { 
-    "name": "Fire cape",
+  "Fire cape": {
     "description": "",
     "maxStack": 1,
     "tags": [],
@@ -148,8 +130,7 @@
       "equipment": "Cape"
     }
   },
-  "ring of soup": { 
-    "name": "Ring of Soup",
+  "Ring of Soup": {
     "description": "",
     "maxStack": 1,
     "tags": [],
@@ -157,8 +138,7 @@
       "equipment": "Ring"
     }
   },
-  "ring of bread": { 
-    "name": "Ring of Bread",
+  "Ring of Bread": {
     "description": "",
     "maxStack": 1,
     "tags": [],
@@ -166,8 +146,7 @@
       "equipment": "Ring"
     }
   },
-  "rune helm": {
-    "name": "Rune helm",
+  "Rune helm": {
     "description": "",
     "maxStack": 1,
     "tags": [],

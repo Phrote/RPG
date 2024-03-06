@@ -33,27 +33,31 @@ public class Gear {
         this.ammunition = new Pair(null, 0);
     }
 
+    public Gear(Gear gear) {
+        gearList.putAll(gear.gearList);
+        this.ammunition = new Pair<>(null, 0);
+    }
+
     public void equip(String itemName) throws NoItemException, NoAvailableSlotsException, LvlReqNotMetexception, FullInvnetoryException {
-        String itemId = Game.player.inventory.getItemIdByName(itemName);
-        if(itemId == null || Game.player.inventory.count(itemId) < 1) {
+        if(Game.player.inventory.count(itemName) < 1) {
             throw new NoItemException(itemName);
         }
-        String type = ItemDatabase.getItemInfo(itemId).data.get("equipment");
+        String type = ItemDatabase.getItemInfo(itemName).data.get("equipment");
         String equipedId = "";
         switch(type) {
             case "Ring":
                 if(this.gearList.get("Ring1").isEmpty()) {
-                    this.gearList.put("Ring1", itemId);
-                    Game.player.inventory.remove(new Item(itemId, 1));
+                    this.gearList.put("Ring1", itemName);
+                    Game.player.inventory.remove(new Item(itemName, 1));
                 } else if (this.gearList.get("Ring2").isEmpty()){
-                    this.gearList.put("Ring2", itemId);
-                    Game.player.inventory.remove(new Item(itemId, 1));
+                    this.gearList.put("Ring2", itemName);
+                    Game.player.inventory.remove(new Item(itemName, 1));
                 }else {
                     throw new NoAvailableSlotsException(type);
                 }
                 break;
             case "Weapon":
-                WeaponInfo weaponInfo = WeaponDatabase.getWeaponInfo(itemId);
+                WeaponInfo weaponInfo = WeaponDatabase.getWeaponInfo(itemName);
                 equipedId = this.gearList.get(type);
 
                 if((weaponInfo.type.equals("Ranged") && Game.player.stats.get(weaponInfo.type).level >= weaponInfo.lvlReq) ||
@@ -66,32 +70,32 @@ public class Gear {
                             throw new FullInvnetoryException();
                         }
                     }
-                    this.gearList.put(type, itemId);
-                    Game.player.inventory.remove(new Item(itemId, 1));
+                    this.gearList.put(type, itemName);
+                    Game.player.inventory.remove(new Item(itemName, 1));
                 } else {
                     throw new LvlReqNotMetexception(weaponInfo.type);
                 }
                 break;
             case "Ammunition":
-                weaponInfo = WeaponDatabase.getWeaponInfo(itemId);
+                weaponInfo = WeaponDatabase.getWeaponInfo(itemName);
                 if((weaponInfo.type.equals("Ranged") && Game.player.stats.get(weaponInfo.type).level >= weaponInfo.lvlReq)) {
                     if(!this.ammunition.key.isEmpty()) {
                         int value = this.ammunition.value;
-                        int spaceNeeded = (int) Math.ceil((value + Game.player.inventory.count(itemId)) / ItemDatabase.getItemInfo(itemId).maxStack);
+                        int spaceNeeded = (int) Math.ceil((value + Game.player.inventory.count(itemName)) / ItemDatabase.getItemInfo(itemName).maxStack);
                         if(Game.player.inventory.getEmptySlots() >= spaceNeeded) {
                             Game.player.inventory.place(new Item(this.ammunition.key, value));
                         } else {
                             throw new FullInvnetoryException();
                         }
                     }
-                    this.ammunition.set(itemId, Game.player.inventory.count(itemId));
-                    Game.player.inventory.remove(new Item(itemId, Game.player.inventory.count(itemId)));
+                    this.ammunition.set(itemName, Game.player.inventory.count(itemName));
+                    Game.player.inventory.remove(new Item(itemName, Game.player.inventory.count(itemName)));
                 } else {
                     throw new LvlReqNotMetexception(weaponInfo.type);
                 }
                 break;
             default:
-                ArmourInfo armourInfo = ArmourDatabase.getArmourInfo(itemId);
+                ArmourInfo armourInfo = ArmourDatabase.getArmourInfo(itemName);
                 equipedId = this.gearList.get(type);
                 if(Game.player.stats.get("Defence").level >= armourInfo.lvlReq) {
                     if(!equipedId.isEmpty()) {
@@ -101,8 +105,8 @@ public class Gear {
                             throw new FullInvnetoryException();
                         }
                     }
-                    this.gearList.put(type, itemId);
-                    Game.player.inventory.remove(new Item(itemId, 1));
+                    this.gearList.put(type, itemName);
+                    Game.player.inventory.remove(new Item(itemName, 1));
                 } else {
                     throw new LvlReqNotMetexception("Defence");
                 }
@@ -117,11 +121,9 @@ public class Gear {
         if(Game.player.inventory.getFilledSlots() == Game.player.inventory.size) {
             throw new FullInvnetoryException();
         }
-        ItemInfo info;
         boolean found = false;
         for(var gear : this.gearList.entrySet()) {
-            info = ItemDatabase.getItemInfo(gear.getValue());
-            if(info != null && info.name.equals(itemName)) {
+            if(itemName.equals(gear.getValue())) {
                 Game.player.inventory.place(new Item(gear.getValue(), 1));
                 this.gearList.put(gear.getKey(), "");
                 found = true;
@@ -140,12 +142,12 @@ public class Gear {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for(var gear : this.gearList.entrySet()) {
-            sb.append(gear.getKey() + ": " + (gear.getValue().isEmpty() ? "" : ItemDatabase.getItemInfo(gear.getValue()).name) + "\n");
+            sb.append(gear.getKey() + ": " + gear.getValue() + "\n");
             if(gear.getKey().equals("Shield")) {
                 sb.append("-----------------------------\n");
             }
         }
-        sb.append("Ammunition: " + (this.ammunition.key == null ? "" : this.ammunition.value + " " + ItemDatabase.getItemInfo(this.ammunition.key).name));
+        sb.append("Ammunition: " + (this.ammunition.key == null ? "" : this.ammunition.value + " " + this.ammunition.key));
 
         return sb.toString();
     }
@@ -155,25 +157,51 @@ public class Gear {
         for(var gear : gearList.entrySet()) {
             if(gear.getValue() == null || gear.getValue().isEmpty())
                 continue;
-            String name = ItemDatabase.getItemInfo(gear.getValue()).name;
-            if(name.startsWith(text)) {
+            if(gear.getValue().startsWith(text)) {
                 if (bestPrefix == null) {
-                    bestPrefix = name;
+                    bestPrefix = gear.getValue();
                 } else {
-                    bestPrefix = Utils.commonPrefix(bestPrefix, name);
+                    bestPrefix = Utils.commonPrefix(bestPrefix, gear.getValue());
                 }
             }
         }
         if(ammunition.key != null) {
-            String name = ItemDatabase.getItemInfo(ammunition.key).name;
-            if(name.startsWith(text)) {
+            if(ammunition.key.startsWith(text)) {
                 if (bestPrefix == null) {
-                    bestPrefix = name;
+                    bestPrefix = ammunition.key;
                 } else {
-                    bestPrefix = Utils.commonPrefix(bestPrefix, name);
+                    bestPrefix = Utils.commonPrefix(bestPrefix, ammunition.key);
                 }
             }
         }
         return bestPrefix;
+    }
+
+    public void wearGearSet(boolean forceSwitchAll) {
+        StorageComponent inventory = Game.player.inventory;
+        Gear gear = Game.player.gear;
+        String worn;
+
+        for (var gearPair : gearList.entrySet()) {
+
+            if(!gearPair.getValue().isEmpty() || forceSwitchAll) {
+                worn = gear.gearList.get(gearPair.getKey());
+                if (worn != null && !worn.isEmpty()) {
+                    try {
+                        gear.unEquip(worn);
+                    } catch (FullInvnetoryException e) {
+                        continue;
+                    }
+                }
+            }
+            if(!gearPair.getValue().isEmpty()) {
+                try {
+                    gear.equip(gearPair.getValue());
+                } catch (NoItemException | NoAvailableSlotsException | LvlReqNotMetexception |
+                         FullInvnetoryException e) {
+                    continue;
+                }
+            }
+        }
     }
 }
