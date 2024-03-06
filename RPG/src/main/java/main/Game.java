@@ -8,6 +8,7 @@ import classes.Player;
 
 import classes.npc.mob.MobDatabase;
 import item.Item;
+import utils.Combat;
 import utils.Utils;
 
 public class Game {
@@ -43,6 +44,7 @@ public class Game {
 //            gui.appendToOutputArea(e.getLocalizedMessage());
 //        }
 
+//        Combat.fight(MobDatabase.getMobInfo("cow"));
 
     }
 

@@ -11,5 +11,8 @@ public class NPC {
     public HashMap<String, Integer> skills;
     public DropTable dropTable;
     public Set<String> tags;
+    public int block;
+    public int damage;
+    public double attackSpeed;
 
 }
