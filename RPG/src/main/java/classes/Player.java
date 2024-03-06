@@ -22,6 +22,7 @@ import item.StorageComponent;
 public class Player implements InputHandler {
 
     public String name;
+    public int hp;
     public LinkedHashMap<String, Stat> stats = new LinkedHashMap<>();
     public Gear gear = new Gear();
     public HashMap<String, Gear> gearSets = new HashMap<>();
@@ -35,6 +36,7 @@ public class Player implements InputHandler {
         for (var skill : Utils.skills.entrySet()) {
             this.stats.put(skill.getKey(), new Stat());
         }
+        this.hp = 1;
     }
 
     @Override

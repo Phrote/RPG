@@ -4,9 +4,9 @@ public class WeaponInfo {
     public String type;
     public int lvlReq;
     public double attackSpeed;
-    public double dmg;
+    public int dmg;
 
-    public WeaponInfo(String type, int lvlReq, double attackSpeed, double dmg) {
+    public WeaponInfo(String type, int lvlReq, double attackSpeed, int dmg) {
         this.type = type;
         this.lvlReq = lvlReq;
         this.attackSpeed = attackSpeed;

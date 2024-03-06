@@ -19,7 +19,6 @@ public class Gear {
     public Gear() {
         gearList.put("Weapon", "");
         gearList.put("Shield", "");
-//        gearList.put("Ammunition", "");
         gearList.put("Helmet", "");
         gearList.put("Shoulder", "");
         gearList.put("Chest", "");
@@ -136,6 +135,37 @@ public class Gear {
         }
         Game.gui.updateGearGUI();
         Game.gui.updateInventoryGUI();
+    }
+
+    public int calcFlatBlock() {
+        int block = 0;
+        for(var gear : this.gearList.entrySet()) {
+            if(gear.getValue().isEmpty()) { continue; }
+            if(gear.getKey().equals("Weapon")) { continue; }
+            block += ArmourDatabase.getArmourInfo(gear.getValue()).block;
+        }
+        return block;
+    }
+
+    public int calcFlatDmg() {
+        int dmg = 0;
+        if(!this.gearList.get("Weapon").isEmpty()) {
+            WeaponInfo info = WeaponDatabase.getWeaponInfo(this.gearList.get("Weapon"));
+            dmg = info.dmg;
+            if(info.type.equals("Ranged") && this.ammunition.value != 0) {
+                dmg += WeaponDatabase.getWeaponInfo(this.ammunition.key).dmg;
+            } else if(info.type.equals("Magic")) {
+                //TODO
+            }
+        }
+        return dmg;
+    }
+
+    public double getAttackSpeed() {
+        if(!this.gearList.get("Weapon").isEmpty()) {
+            return WeaponDatabase.getWeaponInfo(this.gearList.get("Weapon")).attackSpeed;
+        }
+        return 1.5;
     }
 
     @Override

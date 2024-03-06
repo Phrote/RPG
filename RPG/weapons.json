@@ -6,7 +6,6 @@
     "type": "Ranged"
   },
   "Bow of god": {
-    "maxStack": 1,
     "lvlReq": 10,
     "attackSpeed": 2.0,
     "dmg": 100,

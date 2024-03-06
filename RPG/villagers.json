@@ -18,6 +18,9 @@
       "Magic": 90,
       "Ranged": 90,
     },
+    "block": 100,
+    "damage": 100,
+    "attackSpeed": 1.8,
     "dropTable": {
       "dropTable": [
         {
