@@ -9,7 +9,11 @@ import classes.Player;
 import classes.npc.mob.MobDatabase;
 import item.Item;
 import utils.Combat;
+import utils.Encounter;
+import utils.Pair;
 import utils.Utils;
+
+import java.util.ArrayList;
 
 public class Game {
 
@@ -23,7 +27,6 @@ public class Game {
         gui = new GUI();
         Utils.showMainMenu();
         Commands.loadGame();
-        System.out.println(MobDatabase.getMobInfo("cow"));
 
 //        Game.player.inventory.place(new Item("bronze helm",1));
 //        Game.player.inventory.place(new Item("bronze platebody",1));
@@ -43,8 +46,10 @@ public class Game {
 //        } catch (Exception e) {
 //            gui.appendToOutputArea(e.getLocalizedMessage());
 //        }
-
-//        Combat.fight(MobDatabase.getMobInfo("cow"));
+//
+//        Encounter.mobs.add(new Pair(MobDatabase.getMobInfo("cow"), 3));
+//        Encounter.mobs.add(new Pair(MobDatabase.getMobInfo("goblin"), 2));
+//        Encounter.simulate();
 
     }
 
