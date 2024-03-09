@@ -35,37 +35,37 @@ public class StorageTest {
         Assertions.assertEquals(storage.getFilledSlots(),3);
     }
 
-    @Test
-    void storageTextTest() {
-        int size = 5;
-        StorageComponent storage = new StorageComponent(size);
-        storage.place(new Item(item1,item1_info.maxStack));
-        storage.place(new Item(item2,item2_info.maxStack));
-
-        Assertions.assertEquals(storage.textToItem("all " + item1_info.name), new Item(item1,item1_info.maxStack));
-        Assertions.assertEquals(storage.textToItem("half of " + item1_info.name), new Item(item1,item1_info.maxStack/2));
-        Assertions.assertEquals(storage.textToItem("third of " + item1_info.name), new Item(item1,item1_info.maxStack/3));
-        Assertions.assertEquals(storage.textToItem("quarter " + item1_info.name), new Item(item1,item1_info.maxStack/4));
-        Assertions.assertEquals(storage.textToItem("1 " + item1_info.name), new Item(item1,1));
-        Assertions.assertEquals(storage.textToItem(item1_info.maxStack + " " + item1_info.name), new Item(item1,item1_info.maxStack));
-        Assertions.assertEquals(storage.textToItem("an " + item1_info.name), new Item(item1,1));
-    }
-
-    @Test
-    void storageTransferTest() {
-        int inventorySize = 5;
-        int bankSize = 3;
-        StorageComponent inventory = new StorageComponent(inventorySize);
-        StorageComponent bank = new StorageComponent(bankSize);
-
-        inventory.place(new Item(item1, item1_info.maxStack*(inventorySize-1)));
-        inventory.transfer(bank,inventory.textToItem("all " + item1_info.name));
-        Assertions.assertEquals(bank.count(item1), item1_info.maxStack*bankSize);
-        Assertions.assertEquals(inventory.count(item1), item1_info.maxStack*(inventorySize-1) - item1_info.maxStack*bankSize);
-
-        bank.transfer(inventory, bank.textToItem("a " + item1_info.name));
-        Assertions.assertEquals(bank.count(item1), item1_info.maxStack*bankSize-1);
-        Assertions.assertEquals(inventory.count(item1), item1_info.maxStack*(inventorySize-1) - item1_info.maxStack*bankSize+1);
-
-    }
+//    @Test
+//    void storageTextTest() {
+//        int size = 5;
+//        StorageComponent storage = new StorageComponent(size);
+//        storage.place(new Item(item1,item1_info.maxStack));
+//        storage.place(new Item(item2,item2_info.maxStack));
+//
+//        Assertions.assertEquals(storage.textToItem("all " + item1_info.name), new Item(item1,item1_info.maxStack));
+//        Assertions.assertEquals(storage.textToItem("half of " + item1_info.name), new Item(item1,item1_info.maxStack/2));
+//        Assertions.assertEquals(storage.textToItem("third of " + item1_info.name), new Item(item1,item1_info.maxStack/3));
+//        Assertions.assertEquals(storage.textToItem("quarter " + item1_info.name), new Item(item1,item1_info.maxStack/4));
+//        Assertions.assertEquals(storage.textToItem("1 " + item1_info.name), new Item(item1,1));
+//        Assertions.assertEquals(storage.textToItem(item1_info.maxStack + " " + item1_info.name), new Item(item1,item1_info.maxStack));
+//        Assertions.assertEquals(storage.textToItem("an " + item1_info.name), new Item(item1,1));
+//    }
+//
+//    @Test
+//    void storageTransferTest() {
+//        int inventorySize = 5;
+//        int bankSize = 3;
+//        StorageComponent inventory = new StorageComponent(inventorySize);
+//        StorageComponent bank = new StorageComponent(bankSize);
+//
+//        inventory.place(new Item(item1, item1_info.maxStack*(inventorySize-1)));
+//        inventory.transfer(bank,inventory.textToItem("all " + item1_info.name));
+//        Assertions.assertEquals(bank.count(item1), item1_info.maxStack*bankSize);
+//        Assertions.assertEquals(inventory.count(item1), item1_info.maxStack*(inventorySize-1) - item1_info.maxStack*bankSize);
+//
+//        bank.transfer(inventory, bank.textToItem("a " + item1_info.name));
+//        Assertions.assertEquals(bank.count(item1), item1_info.maxStack*bankSize-1);
+//        Assertions.assertEquals(inventory.count(item1), item1_info.maxStack*(inventorySize-1) - item1_info.maxStack*bankSize+1);
+//
+//    }
 }

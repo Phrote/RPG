@@ -34,12 +34,12 @@
     "block": 1,
     "data": {}
   },
-  "Ring of soup": {
+  "Ring of Soup": {
     "lvlReq": 1,
     "block": 1,
     "data": {}
   },
-  "Ring of bread": {
+  "Ring of Bread": {
     "lvlReq": 1,
     "block": 1,
     "data": {}
@@ -47,6 +47,11 @@
   "Rune helm": {
     "lvlReq": 30,
     "block": 10,
+    "data": {}
+  },
+  "Ring Of Welcome": {
+    "lvlReq": 1,
+    "block": 0,
     "data": {}
   }
 

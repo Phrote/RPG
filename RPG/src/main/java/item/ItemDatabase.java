@@ -20,7 +20,6 @@ public class ItemDatabase {
         try {
             Type type = new TypeToken<Map<String, ItemInfo>>(){}.getType();
             database = new Gson().fromJson(Files.readString(Paths.get("items.json")), type);
-            System.out.println(database);
         } catch (IOException e) {
             e.printStackTrace();
         }

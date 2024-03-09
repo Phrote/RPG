@@ -16,7 +16,7 @@
     "dropTable": {
       "dropTable": [
         {
-          "id": "jelly",
+          "name": "Jelly",
           "minQty": 1,
           "maxQty": 3,
           "chance": 0.6
@@ -42,25 +42,25 @@
     "dropTable": {
       "dropTable": [
         {
-          "id": "bones",
+          "name": "Bones",
           "minQty": 1,
           "maxQty": 1,
           "chance": 1.0
         },
         {
-          "id": "apple",
+          "name": "Apple",
           "minQty": 1,
           "maxQty": 1,
           "chance": 0.4
         },
         {
-          "id": "knife",
+          "name": "Knife",
           "minQty": 1,
           "maxQty": 1,
           "chance": 0.2
         },
         {
-          "id": "bow",
+          "name": "Bow",
           "minQty": 1,
           "maxQty": 1,
           "chance": 0.1
@@ -86,19 +86,19 @@
     "dropTable": {
       "dropTable": [
         {
-          "id": "bones",
+          "name": "Bones",
           "minQty": 1,
           "maxQty": 1,
           "chance": 1.0
         },
         {
-          "id": "leather",
+          "name": "Leather",
           "minQty": 1,
           "maxQty": 1,
           "chance": 1.0
         },
         {
-          "id": "meat",
+          "name": "Meat",
           "minQty": 1,
           "maxQty": 1,
           "chance": 1.0
